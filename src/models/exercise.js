@@ -1,5 +1,4 @@
-const { default: mongoose } = require("mongoose");
-const mongoos = require("mongoose");
+const mongoose = require("mongoose");
 
 const exerciseSchema = new mongoose.Schema ({
     exerciseID: {type: Number, required: true},
