@@ -23,7 +23,7 @@ const userSignup = async (req, res) => {
         const newUser = new User({
             userName,
             email,
-            password: bcrypt.hashSync(req.body.password, 5)
+            password: bcrypt.hashSync(req.body.password, 5) // second parmaters states num or salt rounds
         });
 
         // save user

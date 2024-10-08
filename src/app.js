@@ -55,4 +55,6 @@ app.listen(PORT, () => {
 });
 
 //routes
-app.use("/users", userRouter)
+app.use("/users", userRouter);
+
+module.exports = {authSessionToken};
