@@ -1,7 +1,11 @@
-const User = require("../models/userModel")
+const User = require("../models/userModel");
+const jwt = require("jsonwebtoken"); // creates session token upon log-in
+const bcrypt = require("bcryptjs"); // handles password encryption process
+const secretKey = process.env.JTW_KEY;
+
 
 // POST
-const createUser = async (req, res) => {
+const userSignup = async (req, res) => {
     try{
         const { userName, email, password} = req.body;
         // validation
@@ -19,7 +23,7 @@ const createUser = async (req, res) => {
         const newUser = new User({
             userName,
             email,
-            password
+            password: bcrypt.hashSync(req.body.password, 5)
         });
 
         // save user
@@ -35,11 +39,53 @@ const createUser = async (req, res) => {
         }
     };
 
-// GET
-const retreiveUser = async (req, res) => {
+// log-in 
+
+const userLogin = async (req, res) => {
+    try {
+        const user = await User.findOne({
+            userName: req.body.userName
+        });
+
+        if (!user) {
+            return res.status(404).send({message: "User not found."});
+        }
+
+        const passwordIsValid = bcrypt.compareSync(
+            req.body.password,
+            user.password
+        );
+
+        if (!passwordIsValid) {
+            return res.status(401).send({message: "Invalid Password"});
+        }
+
+        const token = jwt.sign({id: user._id},
+                                secretKey,
+                                {
+                                algorithm: 'HS256',
+                                expiresIn: '24h',  
+                                });
+
+        req.session.token = token
+        return res.status(200).send({
+            id: user._id,
+            username: user.userName,
+            email: user.email,
+
+        });
+
+    }
+    catch (error) {
+        return res,status(500).send({message: error.message});
+    }    
+};
+
+// log-out
+
+const userSignout = async (req, res) => {
+
     
 }
 
-// log-in 
-
-module.exports = {createUser, retreiveUser};
+module.exports = {userSignup, userLogin, userSignout};
