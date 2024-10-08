@@ -1,12 +1,12 @@
 const User = require("../models/userModel")
 
-// create new user
+// POST
 const createUser = async (req, res) => {
     try{
         const { userName, email, password} = req.body;
         // validation
         if (!userName || !email || !password) {
-            return res.statur(400).json({message: "All field are reuqired"});
+            return res.status(400).json({message: "All field are reuqired"});
         }
 
         // check for existing user (unique email)
@@ -23,7 +23,7 @@ const createUser = async (req, res) => {
         });
 
         // save user
-        await newUser.save()
+        await newUser.save();
 
         // final response
         res.status(201).json(newUser);
@@ -35,4 +35,11 @@ const createUser = async (req, res) => {
         }
     };
 
-module.exports = {createUser};
+// GET
+const retreiveUser = async (req, res) => {
+    
+}
+
+// log-in 
+
+module.exports = {createUser, retreiveUser};
