@@ -1,10 +1,10 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken"); // creates session token upon log-in
 const bcrypt = require("bcryptjs"); // handles password encryption process
-const secretKey = process.env.JTW_KEY;
+const secretKey = process.env.JWT_KEY;
 
 
-// POST
+// Sign-up
 const userSignup = async (req, res) => {
     try{
         const { userName, email, password} = req.body;
@@ -77,15 +77,20 @@ const userLogin = async (req, res) => {
 
     }
     catch (error) {
-        return res,status(500).send({message: error.message});
+        return res.status(500).send({message: error.message});
     }    
 };
 
 // log-out
 
 const userSignout = async (req, res) => {
-
-    
-}
+    try {
+       req.session = null;
+       return res.status(200).send({ message: "You have been signed out."}); 
+    }
+    catch (error) {
+        this.next(error);
+    }
+};
 
 module.exports = {userSignup, userLogin, userSignout};
