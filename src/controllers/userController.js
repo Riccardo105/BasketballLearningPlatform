@@ -67,7 +67,7 @@ const userLogin = async (req, res) => {
                                 expiresIn: '24h',  
                                 });
 
-        req.session.token = token
+        req.session.token = token;
         return res.status(200).send({
             id: user._id,
             username: user.userName,
