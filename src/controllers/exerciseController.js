@@ -35,20 +35,20 @@ const postExercise = async (req, res) => {
 // but the entire document is retreived for easy access purposes
 const getExercise  = async (req, res) => {
     try {
-        const exercises = await Exercise.findAll({
+        const exercises = await Exercise.find({
         category: req.body.category
         });
 
-        if (!exercises) {
-        return res.status(404).send({message: "No exercises for this category."})
+        if (!exercises || exercises.length == 0) {
+        return res.status(404).json({message: "No exercises for this category."})
         }
         
-        return res.status(200)({
+        return res.status(200).json(exercises.map(exercises => ({
             title: exercises.title,
             category: exercises.category,
             skillLevel: exercises.skillLevel,
             body: exercises.body
-        });
+        })));
     }
     catch (error) {
         return res.status(500).send({message: error.message});
