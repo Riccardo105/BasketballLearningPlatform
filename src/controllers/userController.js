@@ -11,13 +11,13 @@ const userSignup = async (req, res) => {
         // validation
         if (!userName || !email || !password) {
             return res.status(400).json({message: "All field are reuqired"});
-        }
+        };
 
         // check for existing user (unique email)
         const emailIsUsed = await User.findOne({email});
         if (emailIsUsed) {
             return res.status(400).json({message: "email is alread in use"});
-        }
+        };
 
         // create new instance
         const newUser = new User({
@@ -49,7 +49,7 @@ const userLogin = async (req, res) => {
 
         if (!user) {
             return res.status(404).send({message: "User not found."});
-        }
+        };
 
         const passwordIsValid = bcrypt.compareSync(
             req.body.password,
@@ -68,6 +68,7 @@ const userLogin = async (req, res) => {
                                 });
 
         req.session.token = token;
+        console.log(req.session.token)
         return res.status(200).send({
             id: user._id,
             username: user.userName,
@@ -78,7 +79,7 @@ const userLogin = async (req, res) => {
     }
     catch (error) {
         return res.status(500).send({message: error.message});
-    }    
+    };    
 };
 
 // log-out

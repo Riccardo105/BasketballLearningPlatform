@@ -7,4 +7,4 @@ const personalPlaSchema = new mongoose.Schema({
 
 const personalPlan = mongoose.model("Personal Plan", personalPlaSchema);
 
-model.exports = personalPlan;
+module.exports = personalPlan;
