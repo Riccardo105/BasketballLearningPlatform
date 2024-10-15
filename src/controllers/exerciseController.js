@@ -3,7 +3,7 @@ const Exercise = require("../models/exerciseModel");
 // POST
 // NOTE: this feature is not intended for the user.
 // Thus it will not be implemented in front end.
-// it will be accessible to devs/admin through API client
+// it will be accessible to devs/admin through API client (Postman)
 
 const postExercise = async (req, res) => {
     try {
@@ -31,9 +31,9 @@ const postExercise = async (req, res) => {
 
 
 // get Exercise list by category
-// exercises will be displayed as a lsit of titles
+// exercises will be displayed as a list of titles
 // but the entire document is retreived for easy access purposes
-const getExercise  = async (req, res) => {
+const getExerciseByCat  = async (req, res) => {
     try {
         const exercises = await Exercise.find({
         category: req.body.category
@@ -55,4 +55,20 @@ const getExercise  = async (req, res) => {
     }
 };
 
-module.exports = {postExercise, getExercise}
+
+// get exercise by ID
+// this is used in pair with the personalPlan and positionPlan 
+// where the exercises are stored by ID
+// in this scenario this function will always receive an array of IDs
+const getExerciseByID = async (req, res) => {
+    try {
+        const exercises = await Exercise.find({
+            
+        });
+    }
+    catch (error) {
+        return res.status(500).send({messge: error.message});
+    };
+};
+
+module.exports = {postExercise, getExerciseByCat, getExerciseByID}

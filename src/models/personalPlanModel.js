@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const personalPlaSchema = new mongoose.Schema({
     criteria: {type: [String], required: true},
-    exercisesIDs: [{type: mongoose.Schema.Types.ObjectId, ref: "exercise"}]
+    exercisesIDs: [{type: mongoose.Schema.Types.ObjectId, ref: "Exercise"}]
 });
 
 const personalPlan = mongoose.model("Personal Plan", personalPlaSchema);
