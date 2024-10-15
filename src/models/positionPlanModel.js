@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const positionPlanSchema = new mongoose.Schema({
-    fieldPosition: {type: String, required: true, enum:["Point Guard", "Shooting Guard", "Center", "Power Forward", "Small Forward"]},
+    fieldPosition: {type: String, required: true},
     exercisesIDs: [{type: mongoose.Schema.Types.ObjectId, ref: "Exercise"}]
 });
 

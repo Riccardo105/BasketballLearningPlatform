@@ -47,7 +47,8 @@ const getExerciseByCat  = async (req, res) => {
             title: exercises.title,
             category: exercises.category,
             skillLevel: exercises.skillLevel,
-            body: exercises.body
+            body: exercises.body,
+            id: exercises.id
         })));
     }
     catch (error) {
