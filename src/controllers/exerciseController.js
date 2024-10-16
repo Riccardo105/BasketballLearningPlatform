@@ -63,12 +63,20 @@ const getExerciseByCat  = async (req, res) => {
 // in this scenario this function will always receive an array of IDs
 const getExerciseByID = async (req, res) => {
     try {
-        const exercises = await Exercise.find({
-            
+        const exerciseID = req.body;
+        const exercises = await Exercise.findOne({exerciseID});
+
+        return res.status(200).json({
+            title: exercises.title,
+            category: exercises.category,
+            skillLevel: exercises.skillLevel,
+            body: exercises.body,
+            id: exercises.id
         });
     }
     catch (error) {
         return res.status(500).send({messge: error.message});
+
     };
 };
 

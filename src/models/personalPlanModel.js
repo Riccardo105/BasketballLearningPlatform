@@ -5,6 +5,6 @@ const personalPlaSchema = new mongoose.Schema({
     exercisesIDs: [{type: mongoose.Schema.Types.ObjectId, ref: "Exercise"}]
 });
 
-const personalPlan = mongoose.model("Personal Plan", personalPlaSchema);
+const PersonalPlan = mongoose.model("Personal Plan", personalPlaSchema);
 
 module.exports = personalPlan;
