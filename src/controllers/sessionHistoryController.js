@@ -30,7 +30,8 @@ const addOngoingEntry = async (req, res) => {
          if (Object.keys(update).length > 0){
             const result = await OngoingSession.updateOne(
                 {userID},
-                update
+                update,
+                {returnDocument: "after"}
             );
             return res.status(200).send({ message: "update succesfull", result})
          } else {
@@ -86,8 +87,8 @@ const addCompletedEntry = async (req, res) => {
 
         // if no value in array no operation is added to update object
         if (exerciseID.length > 0) {
-            updateOngoing.$pull = { ...updateOngoing.$pull, exerciseID: exerciseID};
-            updateCompleted.$push = { ...updateCompleted.$push, exerciseID: exerciseID};
+            updateOngoing.$pull = { ...updateOngoing.$pull, exercisesID: exerciseID};
+            updateCompleted.$push = { ...updateCompleted.$push, exercisesID: exerciseID};
         };
 
         if (personalPlanID.length > 0) {
@@ -97,23 +98,24 @@ const addCompletedEntry = async (req, res) => {
 
         if (positionPlanID.length > 0) {
             updateOngoing.$pull = { ...updateOngoing.$pull, positionPlanID: positionPlanID};
-            updateCompleted.$push = { ...updateCompleted    .$push, positionPlanID: positionPlanID};
+            updateCompleted.$push = { ...updateCompleted.$push, positionPlanID: positionPlanID};
         };
-        console.log(userID)
-        console.log(updateCompleted);
+     
         console.log(updateOngoing);
-        
+        console.log(updateCompleted);
+
         // only run the update if there's a key in update
          if (Object.keys(updateOngoing).length > 0 && Object.keys(updateCompleted).length > 0){
-            const resultOngoing = await OngoingSession.updateOne(
+            const resultOngoing = await OngoingSession.findOneAndUpdate(
                 {userID},
-                updateOngoing
+                updateOngoing,
+                {returnDocument: "after"}
             );
-            const resultCompleted = await CompletedSession.updateOne(
+            const resultCompleted = await CompletedSession.findOneAndUpdate(
                 {userID},
-                updateCompleted   
+                updateCompleted,
+                {returnDocument: "after"}  
             );
-
             return res.status(200).send({ message: "update succesfull", resultOngoing: resultOngoing, resultCompleted: resultCompleted})
          } else {
             return res.status(200).send({message: "no changes made."})
