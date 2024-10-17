@@ -2,8 +2,8 @@ const User = require("../models/userModel");
 const jwt = require("jsonwebtoken"); // creates session token upon log-in
 const bcrypt = require("bcryptjs"); // handles password encryption process
 const secretKey = process.env.JWT_KEY;
-const OngoingSession = require("../models/sessionHistoryModel");
-const CompletedSession = require("../models/sessionHistoryModel");
+const {OngoingSession, CompletedSession} = require("../models/sessionHistoryModel");
+
 
 
 // Sign-up
@@ -28,8 +28,6 @@ const userSignup = async (req, res) => {
             password: bcrypt.hashSync(req.body.password, 5) // second parmaters states num or salt rounds
         });
 
-        // save user
-        await newUser.save();
 
         // a ongoing and completed session is created for history management purposes
         const ongoingSession = new OngoingSession({userID: newUser._id});
@@ -37,6 +35,7 @@ const userSignup = async (req, res) => {
 
         await ongoingSession.save();
         await completedSession.save();
+        await newUser.save();
         
         // final response
         res.status(201).json(newUser);

@@ -11,7 +11,8 @@ const connectToDatabase = require ('./config/db');
 // routers imports
 const userRouter = require("./routes/userRoute");
 const exerciseRouter = require("./routes/exerciseRoute");
-const positionPlanrouter = require ("./routes/positionPlanRoute");
+const positionPlanRouter = require ("./routes/positionPlanRoute");
+const sessionHistoryRouter = require("./routes/sessionHistoryRoutes")
 
 // Middleware
 const app = express();
@@ -41,7 +42,8 @@ connectToDatabase();
 //routes
 app.use("/users", userRouter);
 app.use("/exercises", exerciseRouter);
-app.use("/positionPlan", positionPlanrouter);
+app.use("/positionPlan", positionPlanRouter);
+app.use("/sessionHistory", sessionHistoryRouter);
 
 
 

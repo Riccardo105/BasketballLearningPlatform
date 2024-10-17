@@ -1,5 +1,5 @@
 
-const jtw = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 const authSessionToken = (req, res, next) => {
     const token = req.session.token;
