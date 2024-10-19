@@ -7,7 +7,7 @@ const positionPlan = require("../models/positionPlanModel")
 // Add entry to ognoing session
 const addOngoingEntry = async (req, res) => {
     try {
-        const {exerciseID = [], personalPlanID = [], positionPlanID = []} = req.body;
+        const {exerciseID = [], positionPlanID = []} = req.body;
         const userID = req.userId;
         
         // object hold the update operation based on ids in arrays
@@ -16,10 +16,6 @@ const addOngoingEntry = async (req, res) => {
         // if no value in array no operation is added to update object
         if (exerciseID.length > 0) {
             update.$push = { ...update.$push, exercisesID: exerciseID};
-        };
-
-        if (personalPlanID.length > 0) {
-            update.$push = { ...update.$push, personalPlanID: personalPlanID};
         };
 
         if (positionPlanID.length > 0) {
@@ -55,15 +51,12 @@ const getOngoingSession = async (req, res) => {
         // retreive exercises/plans
         const exercisesID = ongoingSession.exercisesID;
         const exercises = await Exercise.find({_id: {$in: exercisesID}});
-        const personalPlansID = ongoingSession.personalPlanID;
-        const personalPlans = await personalPlan.find({_id: {$in: personalPlansID}});
         const positionPlansID = ongoingSession.positionPlanID;
         const positionPlans = await positionPlan.find({_id: {$in: positionPlansID}});
 
         const response = {
             ongoingSession,
             exercises,
-            personalPlans,
             positionPlans
         };
 
@@ -78,7 +71,7 @@ const getOngoingSession = async (req, res) => {
 // same logic as above but the entry is also removed from the ongoing session 
 const addCompletedEntry = async (req, res) => {
     try {
-        const {exerciseID = [], personalPlanID = [], positionPlanID = []} = req.body;
+        const {exerciseID = [], positionPlanID = []} = req.body;
         const userID = req.userId;
         
         // object hold the update operation based on ids in arrays
@@ -89,11 +82,6 @@ const addCompletedEntry = async (req, res) => {
         if (exerciseID.length > 0) {
             updateOngoing.$pull = { ...updateOngoing.$pull, exercisesID: exerciseID};
             updateCompleted.$push = { ...updateCompleted.$push, exercisesID: exerciseID};
-        };
-
-        if (personalPlanID.length > 0) {
-            updateOngoing.$pull = { ...updateOngoing.$pull, personalPlanID: personalPlanID};
-            updateCompleted.$push = { ...updateCompleted.$push, personalPlanID: personalPlanID};
         };
 
         if (positionPlanID.length > 0) {
@@ -137,15 +125,12 @@ const getCompletedSession = async (req, res) => {
          // retreive exercises/plans
          const exercisesID = completedSession.exercisesID;
          const exercises = await Exercise.find({_id: {$in: exercisesID}});
-         const personalPlansID = completedSession.personalPlanID;
-         const personalPlans = await personalPlan.find({_id: {$in: personalPlansID}});
          const positionPlansID = completedSession.positionPlanID;
          const positionPlans = await positionPlan.find({_id: {$in: positionPlansID}});
  
          const response = {
              completedSession,
              exercises,
-             personalPlans,
              positionPlans
          };
  

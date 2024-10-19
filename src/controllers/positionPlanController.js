@@ -59,3 +59,4 @@ const getPositionPlan = async (req, res) => {
 }
 
 module.exports = {createPositionPlan, getPositionPlan}
+
