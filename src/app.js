@@ -9,10 +9,10 @@ const jwt = require("jsonwebtoken");
 const connectToDatabase = require ('./config/db');
 
 // routers imports
-const userRouter = require("./routes/userRoute");
-const exerciseRouter = require("./routes/exerciseRoute");
-const positionPlanRouter = require ("./routes/positionPlanRoute");
-const sessionHistoryRouter = require("./routes/sessionHistoryRoutes")
+const userRouter = require("./routes/api/userRoute");
+const exerciseRouter = require("./routes/api/exerciseRoute");
+const positionPlanRouter = require ("./routes/api/positionPlanRoute");
+const sessionHistoryRouter = require("./routes/api/sessionHistoryRoutes")
 
 // Middleware
 const app = express();

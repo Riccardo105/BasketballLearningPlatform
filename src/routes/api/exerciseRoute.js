@@ -1,5 +1,5 @@
 const express = require("express");
-const {postExercise, getExerciseByCat, getExerciseByID, getExerciseBySkillLev} = require("../controllers/exerciseController");
+const {postExercise, getExerciseByCat, getExerciseByID, getExerciseBySkillLev} = require("../controllers/api/exerciseController");
 const router = express.Router();
 
 // routes
