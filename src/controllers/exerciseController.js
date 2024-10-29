@@ -56,9 +56,35 @@ const getExerciseByCat  = async (req, res) => {
     }
 };
 
+// get exercise by skill level
+// this is used as a filtering feature
+const getExerciseBySkillLev  = async (req, res) => {
+    try {
+        const exercises = await Exercise.find({
+        category: req.body.skillLevel
+        });
+
+        if (!exercises || exercises.length == 0) {
+        return res.status(404).json({message: "No exercises for this skill level."})
+        }
+        
+        return res.status(200).json(exercises.map(exercises => ({
+            title: exercises.title,
+            category: exercises.category,
+            skillLevel: exercises.skillLevel,
+            body: exercises.body,
+            id: exercises.id
+        })));
+    }
+    catch (error) {
+        return res.status(500).send({message: error.message});
+    }
+};
+
+
 
 // get exercise by ID
-// this is used in pair with the personalPlan and positionPlan 
+// this is used in pair with the positionPlan 
 // where the exercises are stored by ID
 // in this scenario this function will always receive an array of IDs
 const getExerciseByID = async (req, res) => {
@@ -80,4 +106,6 @@ const getExerciseByID = async (req, res) => {
     };
 };
 
-module.exports = {postExercise, getExerciseByCat, getExerciseByID}
+
+
+module.exports = {postExercise, getExerciseByCat, getExerciseByID, getExerciseBySkillLev}

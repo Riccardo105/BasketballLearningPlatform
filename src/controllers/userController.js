@@ -1,7 +1,6 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken"); // creates session token upon log-in
 const bcrypt = require("bcryptjs"); // handles password encryption process
-const secretKey = process.env.JWT_KEY;
 const {OngoingSession, CompletedSession} = require("../models/sessionHistoryModel");
 
 
@@ -69,7 +68,7 @@ const userLogin = async (req, res) => {
         }
 
         const token = jwt.sign({id: user._id},
-                                secretKey,
+                                process.env.JWT_KEY,
                                 {
                                 algorithm: 'HS256',
                                 expiresIn: '24h',  

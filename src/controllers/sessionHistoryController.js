@@ -1,6 +1,5 @@
 const {OngoingSession, CompletedSession} = require("../models/sessionHistoryModel");
 const Exercise = require("../models/exerciseModel");
-const personalPlan = require("../models/personalPlanModel");
 const positionPlan = require("../models/positionPlanModel")
 
 

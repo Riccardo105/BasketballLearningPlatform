@@ -30,10 +30,12 @@ app.use (
     })
 );
 
+// set EJS as the templating engine
+app.set('view engine', 'ejs');
 
 // simple route to test server
 app.get("/", (_req, res) => {
-    res.send("Hello world");
+    res.render('home', {name: 'Riccardo'});
 });
 
 // run connetion to database from db.js
