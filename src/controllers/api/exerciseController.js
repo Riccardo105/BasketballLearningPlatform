@@ -1,4 +1,4 @@
-const Exercise = require("../models/exerciseModel");
+const Exercise = require("../../models/exerciseModel");
 
 // POST
 // NOTE: this feature is not intended for the user.

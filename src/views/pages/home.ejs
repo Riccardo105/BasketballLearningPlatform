@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-
-    <style type="text/css" media="screen">
-        body {
-            background-color: skyblue;
-            text-decoration-color: white;
-            font-size: 7em;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/defaultStructure.css">
+    <link rel="stylesheet" href="/css/header-footer.css">
 </head>
-
-<body>
-    <center>This is our home page.<br />
-    Welcome <%=name%>, to our home page.
-</center>
+<body class="body">
+    <div class="container">
+        <%- include('../partials/header') %>
+        <%- include('../partials/footer') %>
+    </div>
+   
 </body>
 </html>

@@ -7,8 +7,10 @@ const cors = require("cors");
 const cookieSession = require("cookie-session");
 const jwt = require("jsonwebtoken");
 const connectToDatabase = require ('./config/db');
+const path = require("path");
 
-// routers imports
+
+// Api routers imports
 const userRouter = require("./routes/api/userRoute");
 const exerciseRouter = require("./routes/api/exerciseRoute");
 const positionPlanRouter = require ("./routes/api/positionPlanRoute");
@@ -19,6 +21,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors());
+
+
 
 
 // Cookie session setup
@@ -32,16 +36,17 @@ app.use (
 
 // set EJS as the templating engine
 app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'views', 'public')))
 
 // simple route to test server
 app.get("/", (_req, res) => {
-    res.render('home', {name: 'Riccardo'});
+    res.render('pages/home');
 });
 
 // run connetion to database from db.js
 connectToDatabase();
 
-//routes
+// Api routes
 app.use("/users", userRouter);
 app.use("/exercises", exerciseRouter);
 app.use("/positionPlan", positionPlanRouter);

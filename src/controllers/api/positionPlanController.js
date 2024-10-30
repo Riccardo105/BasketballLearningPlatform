@@ -1,4 +1,4 @@
-const PositionPlan = require("../models/positionPlanModel");
+const PositionPlan = require("../../models/positionPlanModel");
 
 // POST
 // NOTE: this feature is not intended for the user.

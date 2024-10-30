@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {addOngoingEntry, getOngoingSession, addCompletedEntry, getCompletedSession} = require("../controllers/api/sessionHistoryController");
+const {addOngoingEntry, getOngoingSession, addCompletedEntry, getCompletedSession} = require("../../controllers/api/sessionHistoryController");
 const authToken = require("../../config/auth")
 
 //routes

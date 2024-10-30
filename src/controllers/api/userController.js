@@ -1,7 +1,7 @@
-const User = require("../models/userModel");
+const User = require("../../models/userModel");
 const jwt = require("jsonwebtoken"); // creates session token upon log-in
 const bcrypt = require("bcryptjs"); // handles password encryption process
-const {OngoingSession, CompletedSession} = require("../models/sessionHistoryModel");
+const {OngoingSession, CompletedSession} = require("../../models/sessionHistoryModel");
 
 
 

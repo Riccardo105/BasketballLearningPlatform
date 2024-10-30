@@ -1,6 +1,6 @@
-const {OngoingSession, CompletedSession} = require("../models/sessionHistoryModel");
-const Exercise = require("../models/exerciseModel");
-const positionPlan = require("../models/positionPlanModel")
+const {OngoingSession, CompletedSession} = require("../../models/sessionHistoryModel");
+const Exercise = require("../../models/exerciseModel");
+const positionPlan = require("../../models/positionPlanModel")
 
 
 // Add entry to ognoing session
