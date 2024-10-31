@@ -7,7 +7,7 @@ const cors = require("cors");
 const cookieSession = require("cookie-session");
 const jwt = require("jsonwebtoken");
 const connectToDatabase = require ('./config/db');
-const path = require("path");
+const expressLayouts = require('express-ejs-layouts')
 
 
 // Api routers imports
@@ -21,6 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors());
+app.use(expressLayouts)
 
 
 
@@ -36,7 +37,7 @@ app.use (
 
 // set EJS as the templating engine
 app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, 'views', 'public')))
+app.use(express.static("../public"))
 
 // simple route to test server
 app.get("/", (_req, res) => {
