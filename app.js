@@ -37,12 +37,11 @@ app.use (
 
 // set EJS as the templating engine
 app.set('view engine', 'ejs');
-app.use(express.static("../public"));
+app.use(express.static("./public"));
 app.set('views', path.join(__dirname, 'src/views'));
 
 
-// simple route to test server
-app.get("/home", (_req, res) => {
+app.get("/", (_req, res) => {
     res.render('pages/home');
 });
 
