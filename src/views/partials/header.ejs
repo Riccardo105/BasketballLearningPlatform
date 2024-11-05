@@ -1,14 +1,32 @@
 <link href="/css/main.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="/js/toggleNavMenu.js"> </script>
 
 <header>
-        <ul class="flex justify-between relative w-full h-10 overflow-hidden p-0.5 border-b-2 border-gray-600">
-            <li><i class="fa fa-bars cursor-pointer hover:bg-slate-600" style="width: 40px; height: 100%; display: flex; align-items: center; justify-content: center" ></i>
-            </li>
-            <li class=" flex flex-grow items-center justify-center bg-gray-600 h-10 z-0 text-center">
-                <h4 class="text-center text-white"> Basketball Learning Platform</h4>
-            </li>
-            <li><i class="fa fa-user cursor-pointer hover:bg-slate-600" style="width: 40px; height: 100%; display: flex; align-items: center; justify-content: center"></i></li>
-        </ul>
+    <ul class="flex justify-between relative w-full h-auto overflow-hidden p-0.5 border-b-2 border-gray-600">
+
+        <!-- burger menu-->
+        <li class="relative flex items-center">
+            <i class="fa fa-bars cursor-pointer hover:bg-slate-600" style="width: 40px; height: 100%; display: flex; align-items: center; justify-content: center" ></i>
+            <ul class=" hidden absolute flex-col left-0 top-full bg-gray-950">
+                <li> <a href="/home" class=" text-white hover:bg-white hover:text-slate-950">Home</a></li>
+                <li> <a href= "/exercises" class=" text-white hover:bg-white hover:text-slate-950"> Exercises</a></li>
+                <li> <a href="/position-plans" class=" text-white hover:bg-white hover:text-slate-950"> Position Plans</a></li>
+            </ul>
+        </li>
+
+        <!-- Title-->
+        <li class=" flex flex-grow items-center justify-center bg-gray-600 h-10 z-0 text-center">
+            <h4 class=" text-white"> Basketball Learning Platform</h4>
+        </li>
+
+        <!--- profile menu-->
+        <li class="relative flex items-center">
+            <i class="fa fa-user cursor-pointer hover:bg-slate-600" style="width: 40px; height: 100%; display: flex; align-items: center; justify-content: center"></i>
+            <ul class="hidden absolute right-0 top-full bg-gray-950 flex-col mt-1">
+                <li><a href="/log-in" class=" text-white hover:bg-white hover:text-slate-950">Log-in </a></li>
+                <li><a href= "/profile" class=" text-white hover:bg-white hover:text-slate-950 ">Profile </a></li>
+                <li><a href="/history" class=" text-white hover:bg-white hover:text-slate-950">History </a></li>
+            </ul>
+        </li>
+    </ul>
 </header>
