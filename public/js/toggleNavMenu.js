@@ -9,10 +9,16 @@ document.addEventListener("DOMContentLoaded", function () {
             menu1.classList.toggle("hidden");
             burgerIcon.classList.toggle("bg-slate-600");
             menu2.classList.add("hidden");
+            if (profileIcon.classList.contains("bg-slate-600")) {
+                profileIcon.classList.toggle("bg-slate-600")
+            };
         } else if (menuId === "profileMenu") {
             menu1.classList.add("hidden");
             profileIcon.classList.toggle("bg-slate-600");
             menu2.classList.toggle("hidden");
+            if (burgerIcon.classList.contains("bg-slate-600")) {
+                burgerIcon.classList.toggle("bg-slate-600")
+            };
         }
     };
 

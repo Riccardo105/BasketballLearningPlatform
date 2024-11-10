@@ -4,6 +4,7 @@
         Welcome to the Basketball Learning Platform!
     </h2>
     
+    <!-- About message-->
     <div class="relative welcomeMessage p-4 text-left overflow-hidden rounded-md">
         <!-- Background Image -->
         <div class="absolute inset-0 bg-[url('/images/bg1.jpeg')] bg-no-repeat bg-cover bg-left-top "></div>
@@ -15,4 +16,54 @@
             Join a community of passionate basketball enthusiasts and take your shot at greatness! 
         </p>
     </div>
+
+    <!-- Try out Exercises-->
+    <div class="flex flex-col py-5 px-2">
+        <h1 class="font-bold text-xl border-b-2 border-black text-center"> Ready to elevate your basketball skills?</h1>
+
+        <!-- Content -->
+        <div class="py-2">
+            <p class="drop-shadow-xl rounded-3xl bg-gray-200 text-gray-950  p-2"> Explore our curated drills for shooting, ball control, defense, and strategic offense, all designed to boost your game. 
+            From mastering the basics to refining advanced moves, each exercise challenges you to play smarter, faster, and stronger. 
+            Jump in and discover the training that takes you from practice to performance!</p>
+            </div>
+        
+            <!-- Button-->
+        <div class="flex justify-center"> <%- include('../partials/CheckItOutBtn')%></div>
+    </div>
+
+    <!-- Try out Position plans-->
+     <div class="flex flex-col py-5 px-2">
+        <h1 class="font-bold text-red-900 text-xl border-b-2 border-black text-center"> Train like a pro in your position!</h1>
+
+        <!-- Content-->
+        <div class="py-2">
+            <p class="drop-shadow-xl rounded-3xl bg-gray-200 text-gray-950  p-2"> Whether you're a point guard, shooting guard, small forward, power forward, or center, 
+                our tailored training plans build the skills you need to excel on the court.
+                Each plan is packed with position-specific drills, designed to boost your strengths, sharpen your moves, and elevate your game. 
+                Choose your role and start training like the best in the game!</p>
+            </div>
+
+        <!-- Button-->
+        <div class="flex justify-center"> <%- include('../partials/CheckItOutBtn')%></div>
+
+     </div>
+     <div class="flex flex-col py-5 px-2">
+        <h1 class="font-bold text-black text-md  border-black text-center"> Your basketball journey begins here. Join us to track your progress!</h1>
+
+        <div class="flex flex-row justify-center p-2">
+            <!-- sign up button-->
+            <button type="button" class="text-black bg-blue-100 w-fit rounded-md drop-shadow-lg
+            hover:text-white hover:bg-slate-900">
+            <p class="px-0.5">Sign up</p> </button>
+
+            <p class=" px-4"> or </p>
+            <!-- log in button-->
+            <button type="button" class="text-black bg-blue-100 w-fit rounded-md drop-shadow-lg
+            hover:text-white hover:bg-slate-900">
+                <p class="px-0.5">Log in</p> </button>
+        </div>
+        
+
+     </div>
 </body>
