@@ -1,0 +1,22 @@
+<body>
+    <div class="py-2">
+        <h1 class="text-xl text-red-900 font-bold"> Welcome back, Hoops Hero!</h1>
+        <h2 class="text-md text-red-900"> Ready to level up your game?"</h2>
+
+    </div>
+    
+    <!-- login form-->
+    <div class="flex justify-center p-4 ">
+        <form action="/users/login" method="post" class="flex flex-col justify-center gap-2">
+            <input type="email" class=" p-0.5 rounded-md border-2 drop-shadow-lg "  name="email" placeholder="email">
+            <input type="password" class=" p-0.5 rounded-md  border-2 drop-shadow-lg "  name="password" placeholder="password">
+            <input type="submit" class="rounded-md bg-slate-50 drop-shadow-lg w-fit mx-auto px-0.5 py-0.5" value="Submit">
+        </form>
+    </div>
+
+    <!-- signup redirect-->
+     <div class="flex flex-row justify-center">
+        <p class="px-1 "> If you're new here</p>
+        <a href="./signup.ejs" class="text-blue-500 hover:text-purple-500"> Sign up!</a>
+     </div>
+</body>

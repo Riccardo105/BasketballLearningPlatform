@@ -51,7 +51,7 @@ const userSignup = async (req, res) => {
 const userLogin = async (req, res) => {
     try {
         const user = await User.findOne({
-            userName: req.body.userName
+            email: req.body.email
         });
 
         if (!user) {

@@ -14,7 +14,11 @@ const path = require("path");
 const userRouter = require("./src/routes/api/userRoute");
 const exerciseRouter = require("./src/routes/api/exerciseRoute");
 const positionPlanRouter = require ("./src/routes/api/positionPlanRoute");
-const sessionHistoryRouter = require("./src/routes/api/sessionHistoryRoutes")
+const sessionHistoryRouter = require("./src/routes/api/sessionHistoryRoutes");
+
+// pages routes imports
+const loginController = require("./src/controllers/pages/login");
+const signupController = require("./src/controllers/pages/signup");
 
 // Middleware
 const app = express();
@@ -42,7 +46,7 @@ app.set('views', path.join(__dirname, 'src/views'));
 
 
 app.get("/", (_req, res) => {
-    res.render('pages/home');
+    res.render('pages/login', { title: "home"});
 });
 
 // run connetion to database from db.js
@@ -51,8 +55,13 @@ connectToDatabase();
 // Api routes
 app.use("/users", userRouter);
 app.use("/exercises", exerciseRouter);
-app.use("/positionPlan", positionPlanRouter);
+app.use("/positionPlans", positionPlanRouter);
 app.use("/sessionHistory", sessionHistoryRouter);
+
+// pages routes
+app.use("/login", loginController);
+app.use("/signup", signupController);
+
 
 
 
