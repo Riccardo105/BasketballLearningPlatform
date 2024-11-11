@@ -7,28 +7,35 @@ const Exercise = require("../../models/exerciseModel");
 
 const postExercise = async (req, res) => {
     try {
-        const {title, category, skillLevel, body} = req.body;
-
-        if (!title || !category || !skillLevel || !body) {
-            return res.status(400).json({message: "All fields requried"});
-
-        };
-        const newExercise = new Exercise({
-            title,
-            category,
-            skillLevel,
-            body
-        });
-
-        await newExercise.save();
+        // Ensure req.body is an array
+        const exercises = Array.isArray(req.body) ? req.body : [req.body];
         
-        res.status(201).json(newExercise)
-    }   
-    catch (error) {
-        return res.status(500).send({message: error.message});
-    };        
-};
+        const createdExercises = [];
 
+        // Validate and save each exercise in the array
+        for (const exercise of exercises) {
+            const { title, category, skillLevel, body } = exercise;
+
+            if (!title || !category || !skillLevel || !body) {
+                return res.status(400).json({ message: "All fields required" });
+            }
+
+            const newExercise = new Exercise({
+                title,
+                category,
+                skillLevel,
+                body
+            });
+
+            const savedExercise = await newExercise.save();
+            createdExercises.push(savedExercise); // Store each saved exercise
+        }
+
+        res.status(201).json({ message: "Exercises created successfully", data: createdExercises });
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
 
 // get Exercise list by category
 // exercises will be displayed as a list of titles

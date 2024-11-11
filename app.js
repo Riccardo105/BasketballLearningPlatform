@@ -19,6 +19,7 @@ const sessionHistoryRouter = require("./src/routes/api/sessionHistoryRoutes");
 // pages routes imports
 const loginController = require("./src/controllers/pages/login");
 const signupController = require("./src/controllers/pages/signup");
+const homeController = require("./src/controllers/pages/home");
 
 // Middleware
 const app = express();
@@ -46,7 +47,7 @@ app.set('views', path.join(__dirname, 'src/views'));
 
 
 app.get("/", (_req, res) => {
-    res.render('pages/login', { title: "home"});
+    res.render('pages/home', { title: "home"});
 });
 
 // run connetion to database from db.js
@@ -61,6 +62,7 @@ app.use("/sessionHistory", sessionHistoryRouter);
 // pages routes
 app.use("/login", loginController);
 app.use("/signup", signupController);
+app.use("/home", homeController);
 
 
 
