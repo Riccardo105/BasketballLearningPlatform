@@ -80,6 +80,7 @@ const userLogin = async (req, res) => {
             id: user._id,
             username: user.userName,
             email: user.email,
+            token: token 
 
         });
 

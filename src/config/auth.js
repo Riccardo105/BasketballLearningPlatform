@@ -5,7 +5,7 @@ const authSessionToken = (req, res, next) => {
     const token = req.session.token;
 
     if (!token) {
-        return res.statust(401).send({ message: "Unauthorised: Not token found."});
+        return res.status(401).send({ message: "Unauthorised: token not found."});
     }
 
     jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {

@@ -17,9 +17,7 @@ const positionPlanRouter = require ("./src/routes/api/positionPlanRoute");
 const sessionHistoryRouter = require("./src/routes/api/sessionHistoryRoutes");
 
 // pages routes imports
-const loginController = require("./src/controllers/pages/login");
-const signupController = require("./src/controllers/pages/signup");
-const homeController = require("./src/controllers/pages/home");
+const pagesController = require("./src/controllers/pages")
 
 // Middleware
 const app = express();
@@ -60,9 +58,7 @@ app.use("/positionPlans", positionPlanRouter);
 app.use("/sessionHistory", sessionHistoryRouter);
 
 // pages routes
-app.use("/login", loginController);
-app.use("/signup", signupController);
-app.use("/home", homeController);
+app.use("/", pagesController)
 
 
 
