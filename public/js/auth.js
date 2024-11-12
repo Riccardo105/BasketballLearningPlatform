@@ -8,5 +8,3 @@ function checkToken() {
     return !!token
 }
 
-
-module.exports = checkToken
