@@ -1,10 +1,36 @@
 <body>
-    <h1 class="text-xl text-red-900 font-bold m-1"> Welcome to the Exercises Hub!</h1>
-        <h2 class="text-md text-red-900 m-1"> Explore our drills and start improving your game, one step at a time!"</h2>
+    <h1 class="text-xl text-red-900 font-bold m-1 text-center"> Welcome to the Exercises Hub!</h1>
+        <h2 class="text-lg text-red-900 m-1 text-center"> Explore our drills and start improving your game, one step at a time!"</h2>
 
+    <div class="flex flex-row ">
+        <!-- filters radio menu-->
+    <button class="m-1 w-fit p-1 rounded-md bg-white text-lg" onclick="toggleFilterMenu()"> Filters</button>
+    <button class="m-1 w-fit p-1 rounded-md bg-white text-lg" onclick="clearFilters()">Clear</button>
+    </div>
+    
+
+    <div id="exerciseFilter" class=" drop-shadow-lg flex flex-col w-fit z-10 rounded-lg bg-white hidden absolute top-[182px] left-[4px] z-0">
+        <!-- Categories-->
+        <legend class="border-b-2 border-black px-2 text-lg z-10 drop-shadow-lg bg-cyan-400 rounded-t-lg font-semibold">Category</legend>
+        <label class=" ml-3 p-0.5"><input type="radio" name="category" value="Ball Handling">Ball Handling</label>
+        <label class=" ml-3 p-0.5"><input type="radio" name="category" value="Shooting">Shooting</label>
+        <label class="ml-3 p-0.5"><input type="radio" name="category" value="Defense">Defense</label>
+        <label class="ml-3 pr-1"><input type="radio" name="category" value="Footwork and Movement">Footwork and Movement</label>
+
+        <!-- Skill level-->
+        <legend class="border-b-2 border-black px-2 text-lg z-10 drop-shadow-lg bg-cyan-400 rounded-t-lg font-semibold">Skill Level</legend>
+        <label class=" ml-3 p-0.5"><input type="radio" name="skillLevel" value="Beginner">Beginner</label>
+        <label class=" ml-3 p-0.5"><input type="radio" name="skillLevel" value="Intermediate">Intermediate</label>
+        <label class="ml-3 p-0.5"><input type="radio" name="skillLevel" value="Advanced">Advanced</label>
+
+    </div>
+
+    <!-- displaying rendered exercises-->
     <% for(var exercise of exercises) { %>
-        <button class="flex flex-col bg-white drop-shadow-lg  rounded-md m-2 cursor-pointer border-b-2 border-black  hover:bg-cyan-200 ">
-            <h1 class="text-black text-lg text-left p-1 cursor-pointer w-full "> <%= exercise.title %></h1>
+        <button class=" exercise flex flex-col bg-white drop-shadow-lg  rounded-md m-2 cursor-pointer border-b-2 border-black  hover:bg-cyan-20 "
+                data-category="<%= exercise.category %>"
+                data-skillLevel="<%= exercise.skillLevel %>">
+            <h1 class="text-black text-lg text-left p-1 cursor-pointer w-full"> <%= exercise.title %></h1>
             <div class="flex flex-row justify-start">
                 <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= exercise.category %></p>
                 <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= exercise.skillLevel %></p>
