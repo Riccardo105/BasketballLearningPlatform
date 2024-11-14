@@ -2,6 +2,8 @@ const User = require("../../models/userModel");
 const jwt = require("jsonwebtoken"); // creates session token upon log-in
 const bcrypt = require("bcryptjs"); // handles password encryption process
 const {OngoingSession, CompletedSession} = require("../../models/sessionHistoryModel");
+const BlacklistedToken = require("../../models/blackListedTokenModel");
+
 
 
 
@@ -67,22 +69,21 @@ const userLogin = async (req, res) => {
             return res.status(401).send({message: "Invalid Password"});
         }
 
-        const token = jwt.sign({id: user._id},
+        const token = jwt.sign( {id: user._id,
+                                userName: user.userName
+                                },
                                 process.env.JWT_KEY,
                                 {
                                 algorithm: 'HS256',
-                                expiresIn: '24h',  
+                                expiresIn: '1h',  
                                 });
-
-        req.session.token = token;
-        console.log(req.session.token)
-        return res.status(200).send({
-            id: user._id,
-            username: user.userName,
-            email: user.email,
-            token: token 
-
-        });
+    
+        // Set the JWT as an httpOnly cookie
+        res.cookie('token', token, { 
+            httpOnly: true, 
+            maxAge:  60 * 60 * 1000 // 1 hours in milliseconds 
+});
+        return res.status(200).send({  message: "Login successful", username: user.userName });
 
     }
     catch (error) {
@@ -93,13 +94,37 @@ const userLogin = async (req, res) => {
 // log-out
 
 const userSignout = async (req, res) => {
-    try {
-       req.session = null;
-       return res.status(200).send({ message: "You have been signed out."}); 
-    }
-    catch (error) {
-        this.next(error);
+    const token = req.cookies['token']; 
+    console.log(token)
+
+    if (token) {
+        try {
+            // Check if the token is already blacklisted
+            const existingToken = await BlacklistedToken.findOne({ token });
+
+            if (existingToken) {
+                console.log('Token is already blacklisted.');
+            } else {
+                // Add the token to the blacklist
+                const blacklistedToken = new BlacklistedToken({ token });
+                await blacklistedToken.save();
+                console.log('Token added to blacklist:', token);
+            }
+
+            // Clear the session (log out the user)
+            res.clearCookie('token', {path: "/"});
+            return res.status(200).send({ message: "You have been signed out." });
+
+        } catch (error) {
+            console.error('Error blacklisting token:', error);
+            return res.status(500).json({ message: "Error while signing out." });
+        }
+
+    } else {
+        return res.status(500).json({ message: "No token found to sign out." });
     }
 };
 
 module.exports = {userSignup, userLogin, userSignout};
+
+

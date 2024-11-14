@@ -5,10 +5,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
+const cookieParser = require('cookie-parser')
 const jwt = require("jsonwebtoken");
 const connectToDatabase = require ("./src/config/db");
 const expressLayouts = require('express-ejs-layouts')
 const path = require("path");
+
 
 // Api routers imports
 const userRouter = require("./src/routes/api/userRoute");
@@ -23,26 +25,21 @@ const pagesController = require("./src/controllers/pages")
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser());
+
+
+
+
 app.use(cors());
 app.use(expressLayouts);
 
 
 
-
-// Cookie session setup
-app.use (
-    cookieSession({
-        name: "Riccardo-session",
-        keys: [process.env.COOKIE_KEY],
-        httpOnly: true,
-    })
-);
-
 // set EJS as the templating engine
 app.set('view engine', 'ejs');
 app.use(express.static("./public"));
 app.set('views', path.join(__dirname, 'src/views'));
-
+app.set("layout extraScripts", true )
 
 app.get("/", (_req, res) => {
     res.render('pages/home', { title: "home"});

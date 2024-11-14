@@ -7,11 +7,14 @@
     
     <!-- login form-->
     <div class="flex justify-center p-4 ">
-        <form action="/users/login" method="post" class="flex flex-col justify-center gap-2">
+        <form id="loginForm" method="post" class="flex flex-col justify-center gap-2">
             <input type="email" class=" p-0.5 rounded-md border-2 drop-shadow-lg "  name="email" placeholder="email">
             <input type="password" class=" p-0.5 rounded-md  border-2 drop-shadow-lg "  name="password" placeholder="password">
             <input type="submit" class="rounded-md bg-slate-50 drop-shadow-lg w-fit mx-auto px-0.5 py-0.5" value="Submit">
         </form>
+    </div>
+
+    <div id="loginMessage" class="flex justify-center text-center m-1 w-full">
     </div>
 
     <!-- signup redirect-->
