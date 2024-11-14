@@ -22,7 +22,7 @@ const completedSessionSchema = new mongoose.Schema ({
     personalPlanID:  [{type: mongoose.Schema.Types.ObjectId, ref: "Personal Plan"}]
 });
 
-const OngoingSession = mongoose.model("Ongoing Session", ongoingSessionSchema);
-const CompletedSession = mongoose.model("Completed Session", completedSessionSchema);
+const OngoingSession = mongoose.model("ongoingsessions", ongoingSessionSchema);
+const CompletedSession = mongoose.model("CompletedSession", completedSessionSchema);
 
 module.exports = {OngoingSession, CompletedSession};

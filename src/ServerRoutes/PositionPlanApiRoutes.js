@@ -1,5 +1,5 @@
 const express = require("express");
-const {createPositionPlan, getPositionPlan} = require("../../controllers/api/positionPlanController");
+const {createPositionPlan, getPositionPlan} = require("../ServerControllers/api/positionPlanController");
 const router = express.Router();
 
 //routes

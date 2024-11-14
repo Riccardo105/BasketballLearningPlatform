@@ -1,3 +1,4 @@
+
 const Exercise = require("../../models/exerciseModel");
 
 // POST

@@ -95,7 +95,6 @@ const userLogin = async (req, res) => {
 
 const userSignout = async (req, res) => {
     const token = req.cookies['token']; 
-    console.log(token)
 
     if (token) {
         try {

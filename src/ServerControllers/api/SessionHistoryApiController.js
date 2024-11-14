@@ -6,36 +6,31 @@ const positionPlan = require("../../models/positionPlanModel")
 // Add entry to ognoing session
 const addOngoingEntry = async (req, res) => {
     try {
-        const {exerciseID = [], positionPlanID = []} = req.body;
+        const { exerciseId } = req.body;  
         const userID = req.userId;
         
-        // object hold the update operation based on ids in arrays
-        const update = {};
-
-        // if no value in array no operation is added to update object
-        if (exerciseID.length > 0) {
-            update.$push = { ...update.$push, exercisesID: exerciseID};
-        };
-
-        if (positionPlanID.length > 0) {
-            update.$push = { ...update.$push, positionPlanID: positionPlanID};
-        }
         
-        // only run the update if there's a key in update
-         if (Object.keys(update).length > 0){
-            const result = await OngoingSession.updateOne(
-                {userID},
-                update,
-                {returnDocument: "after"}
-            );
-            return res.status(200).send({ message: "update succesfull", result})
-         } else {
-            return res.status(200).send({message: "no changes made."})
-         }
+        // Only update if exerciseID is provided
+        if (exerciseId) {
+            const update = { $addToSet: { exercisesID: exerciseId } };
+            
+
+            // Proceed with update
+            const result = await OngoingSession.updateOne({ userID: userID }, update);
+            
+            if (result.nModified > 0) {
+                console.log("Document updated successfully");
+                return res.status(200).send({ message: "Update successful" });
+            } else {
+                console.log("No document was updated");
+                return res.status(400).send({ message: "No matching document found to update." });
+            }
+        } else {
+            return res.status(200).send({ message: "No exercise ID provided." });
+        }
+    } catch (error) {
+        return res.status(500).send({ message: error.message });
     }
-    catch (error) {
-        return res.status(500).send({message: error.message});
-    };    
 };
 
 // get ongoing session

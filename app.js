@@ -13,40 +13,44 @@ const path = require("path");
 
 
 // Api routers imports
-const userRouter = require("./src/routes/api/userRoute");
-const exerciseRouter = require("./src/routes/api/exerciseRoute");
-const positionPlanRouter = require ("./src/routes/api/positionPlanRoute");
-const sessionHistoryRouter = require("./src/routes/api/sessionHistoryRoutes");
+const userRouter = require("./src/ServerRoutes/UserApiRoutes");
+const exerciseRouter = require("./src/ServerRoutes/ExerciseApiRoutes");
+const positionPlanRouter = require ("./src/ServerRoutes/PositionPlanApiRoutes");
+const sessionHistoryRouter = require("./src/ServerRoutes/SessionHistoryApiRoutes");
 
 // pages routes imports
-const pagesController = require("./src/controllers/pages")
+const pagesRouter = require("./src/ServerRoutes/PagesRoutes")
 
 // Middleware
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cookieParser());
 
 
+// set up a boolean to check presence of a token.
+// this is used for dynamic update of profileMenu partial
+app.use((req, res, next) => {
+    res.locals.isLoggedIn = !!req.cookies.token;
+    next();
+  });
 
 
 app.use(cors());
 app.use(expressLayouts);
 
 
-
 // set EJS as the templating engine
 app.set('view engine', 'ejs');
 app.use(express.static("./public"));
 app.set('views', path.join(__dirname, 'src/views'));
-app.set("layout extraScripts", true )
+app.set("layout extractScripts", true )
 
 app.get("/", (_req, res) => {
     res.render('pages/home', { title: "home"});
 });
 
-// run connetion to database from db.js
-connectToDatabase();
+
 
 // Api routes
 app.use("/users", userRouter);
@@ -55,10 +59,10 @@ app.use("/positionPlans", positionPlanRouter);
 app.use("/sessionHistory", sessionHistoryRouter);
 
 // pages routes
-app.use("/", pagesController)
+app.use("/", pagesRouter)
 
-
-
+// run connetion to database from db.js
+connectToDatabase();
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

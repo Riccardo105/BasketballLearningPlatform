@@ -18,12 +18,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const data = await response.json();
 
+            // search for the signoutBtn in the profileMenu partial and toggles hidden if successfully logged in
+            signoutBtn = document.getElementById("signoutBtn")
+
             if (response.ok) {
                 window.location.href = `/dashboard?username=${data.username}`
+                signoutBtn.classList.toggle("hidden")
                 
             } else {
                 loginMessage.textContent = data.message || "An error as occured";
                 loginMessage.style.color = "red";
+                
+
                 
             } 
         } catch (error){
