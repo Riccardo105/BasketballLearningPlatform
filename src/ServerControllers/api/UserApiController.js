@@ -10,9 +10,9 @@ const BlacklistedToken = require("../../models/blackListedTokenModel");
 // Sign-up
 const userSignup = async (req, res) => {
     try{
-        const { userName, email, password} = req.body;
+        const { username, email, password} = req.body;
         // validation
-        if (!userName || !email || !password) {
+        if (!username || !email || !password) {
             return res.status(400).json({message: "All field are reuqired"});
         };
 
@@ -24,7 +24,7 @@ const userSignup = async (req, res) => {
 
         // create new instance
         const newUser = new User({
-            userName,
+            username,
             email,
             password: bcrypt.hashSync(req.body.password, 5) // second parmaters states num or salt rounds
         });
