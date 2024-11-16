@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const data = await response.json();
 
             if (response.ok) {
-                window.location.href = `/dashboard?username=${username}`
+                window.location.href = "/login"
                 
                 
             } else {

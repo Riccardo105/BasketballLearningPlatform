@@ -25,7 +25,7 @@ const dashboardPage = (req, res)=> {
             }
 
             // Render the dashboard page with user information
-            res.render("pages/dashboard", { title: `dashboard/${decoded.userName}`, userName: decoded.userName });
+            res.render("pages/dashboard", { title: `dashboard/${decoded.username}`, username: decoded.username });
         }).catch(err => {
             console.error("Error checking blacklist:", err);
             return res.redirect("/login"); // Error occurred while checking blacklist

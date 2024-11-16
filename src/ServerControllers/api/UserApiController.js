@@ -70,7 +70,7 @@ const userLogin = async (req, res) => {
         }
 
         const token = jwt.sign( {id: user._id,
-                                userName: user.userName
+                                username: user.username
                                 },
                                 process.env.JWT_KEY,
                                 {
