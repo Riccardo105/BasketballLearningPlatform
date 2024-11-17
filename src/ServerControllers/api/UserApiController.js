@@ -83,7 +83,7 @@ const userLogin = async (req, res) => {
             httpOnly: true, 
             maxAge:  60 * 60 * 1000 // 1 hours in milliseconds 
 });
-        return res.status(200).send({  message: "Login successful", username: user.userName });
+        return res.status(200).send({  message: "Login successful", username: user.username });
 
     }
     catch (error) {
@@ -124,6 +124,45 @@ const userSignout = async (req, res) => {
     }
 };
 
-module.exports = {userSignup, userLogin, userSignout};
+
+// handles updating the account's credentials
+const updateCredentials = async (req, res) =>  {
+    try {
+        const token = res.cookies["token"];
+
+        if (!token) {
+            return res.status(401).json({ message: "Authentication token missing" });
+
+        }
+
+        decoded = jwt.verify(token, process.env.JWT_KEY);
+        const user = await User.findOne(decoded.id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        };
+
+        const updates = req.body
+
+        for (const key of Object.keys(updates)) {
+            if (key === "password" && updates.password) {
+                // Hash the password and assign it to the user object
+                const hashedPassword = await bcrypt.hash(updates.password, 5); // 10 is the salt rounds
+                user[key] = hashedPassword; // Assign the hashed password to the user
+            } else if (updates[key] !== undefined) {
+                // Update other fields
+                user[key] = updates[key];
+            }
+        }
+
+        await user.save()
+        return res.status(200).json({ message: "User credentials updated successfully", user });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({message: "error while updating"})
+    }
+}
+
+module.exports = {userSignup, userLogin, userSignout, updateCredentials};
 
 

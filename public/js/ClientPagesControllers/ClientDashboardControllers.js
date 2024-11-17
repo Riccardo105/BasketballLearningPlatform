@@ -29,3 +29,32 @@ document.querySelectorAll(".signoutBtn").forEach(element => {
         }
     });
 });
+
+
+// update credentials menu
+document.querySelectorAll(".fa-plus").forEach(plusIcon => {
+    plusIcon.addEventListener("click", async function() {
+        credentialsDiv = document.getElementById("credentialsDiv")
+        minusIcon = this.nextElementSibling
+
+        credentialsDiv.classList.toggle("hidden");
+        plusIcon.classList.add("hidden");
+        if (minusIcon) {
+            minusIcon.classList.remove("hidden"); 
+        }
+        
+    })
+});
+
+document.querySelectorAll(".fa-minus").forEach(minusIcon => {
+    minusIcon.addEventListener("click", async function() {
+        credentialsDiv = document.getElementById("credentialsDiv")
+        plusIcon = this.previousElementSibling
+
+        credentialsDiv.classList.add("hidden");
+        minusIcon.classList.add("hidden");
+        if (plusIcon) {
+            plusIcon.classList.remove("hidden");
+        }
+    })
+});
