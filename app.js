@@ -15,7 +15,6 @@ const path = require("path");
 // Api routers imports
 const userRouter = require("./src/ServerRoutes/UserApiRoutes");
 const exerciseRouter = require("./src/ServerRoutes/ExerciseApiRoutes");
-const positionPlanRouter = require ("./src/ServerRoutes/PositionPlanApiRoutes");
 const sessionHistoryRouter = require("./src/ServerRoutes/SessionHistoryApiRoutes");
 
 // pages routes imports
@@ -55,7 +54,6 @@ app.get("/", (_req, res) => {
 // Api routes
 app.use("/users", userRouter);
 app.use("/exercises", exerciseRouter);
-app.use("/positionPlans", positionPlanRouter);
 app.use("/sessionHistory", sessionHistoryRouter);
 
 // pages routes
