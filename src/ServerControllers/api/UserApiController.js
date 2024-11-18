@@ -128,35 +128,52 @@ const userSignout = async (req, res) => {
 // handles updating the account's credentials
 const updateCredentials = async (req, res) =>  {
     try {
-        const token = res.cookies["token"];
+        const token = req.cookies["token"];
 
         if (!token) {
             return res.status(401).json({ message: "Authentication token missing" });
 
         }
 
-        decoded = jwt.verify(token, process.env.JWT_KEY);
-        const user = await User.findOne(decoded.id);
-
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        };
-
-        const updates = req.body
-
-        for (const key of Object.keys(updates)) {
-            if (key === "password" && updates.password) {
-                // Hash the password and assign it to the user object
-                const hashedPassword = await bcrypt.hash(updates.password, 5); // 10 is the salt rounds
-                user[key] = hashedPassword; // Assign the hashed password to the user
-            } else if (updates[key] !== undefined) {
-                // Update other fields
-                user[key] = updates[key];
-            }
+        let decoded;
+        try {
+            decoded = jwt.verify(token, process.env.JWT_KEY);
+        } catch (err) {
+            return res.status(401).json({ message: "Invalid token" });
         }
 
-        await user.save()
-        return res.status(200).json({ message: "User credentials updated successfully", user });
+
+        const updates = {...req.body};  
+        console.log(updates)
+        
+        Object.keys(updates).forEach((key) => {
+            if (updates[key] === null || updates[key] === undefined || updates[key] === "") {
+                delete updates[key];
+            }
+        });
+
+        if (updates.password) {
+            updates.password = await bcrypt.hash(updates.password, 10); // Higher salt rounds recommended
+        }
+
+        
+        const updatedUser = await User.findByIdAndUpdate(
+            decoded.id,              // Find user by decoded ID
+            { $set: updates },       // Only update the provided fields
+            { new: true, runValidators: true } // Return updated document, validate fields
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        console.log(updatedUser)
+
+        return res.status(200).json({
+            message: "User credentials updated successfully",
+            user: updatedUser,
+        })
+
     } catch (error) {
         console.error(error);
         return res.status(500).json({message: "error while updating"})

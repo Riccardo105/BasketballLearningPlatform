@@ -9,18 +9,22 @@
     </div>
 
     <!-- Update credential form-->
-    <div id="credentialsDiv" class="hidden flex bg-white rounded-b-md  drop-shadow-lg">
-        <form id="signupForm" method="post" class="flex flex-col justify-center gap-2 m-2">
-            <input type="text" class=" p-0.5 rounded-md border-2 drop-shadow-lg "  name="userName" placeholder="username">
+    <div id="credentialsDiv" class="hidden flex justify-center bg-white rounded-b-md  drop-shadow-lg">
+        <form id="updateCredsForm" method="post" class="flex flex-col justify-center gap-2 m-2">
+            <input type="text" class=" p-0.5 rounded-md border-2 drop-shadow-lg "  name="username" placeholder="username">
             <input type="email" class=" p-0.5 rounded-md border-2 drop-shadow-lg "  name="email" placeholder="email">
             <input type="password" class=" p-0.5 rounded-md  border-2 drop-shadow-lg "  name="password" placeholder="password">
             <input type="submit" class="rounded-md bg-slate-50 drop-shadow-lg w-fit mx-auto px-0.5 py-0.5" value="Submit">
-        </form> </div>
+        </form>
+        <p id="credentialsMessage" class="flex justify-center text-center m-1 w-full p-8" ></p>
+        
+    </div>
+
 
     <div class="flex justify-center">
         <button class="signoutBtn  text-black bg-blue-100 w-fit rounded-md drop-shadow-lg
                     hover:text-white hover:bg-slate-900 m-1 p-0.5 ">signout</button>
     </div>
     
-  
+    <script src="/js/ClientPagesControllers/ClientDashBoardControllers.js"></script>
 </body>

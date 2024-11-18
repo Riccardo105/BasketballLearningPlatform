@@ -31,7 +31,7 @@ document.querySelectorAll(".signoutBtn").forEach(element => {
 });
 
 
-// update credentials menu
+// show credentials menu
 document.querySelectorAll(".fa-plus").forEach(plusIcon => {
     plusIcon.addEventListener("click", async function() {
         credentialsDiv = document.getElementById("credentialsDiv")
@@ -46,6 +46,7 @@ document.querySelectorAll(".fa-plus").forEach(plusIcon => {
     })
 });
 
+// hide credentials menu
 document.querySelectorAll(".fa-minus").forEach(minusIcon => {
     minusIcon.addEventListener("click", async function() {
         credentialsDiv = document.getElementById("credentialsDiv")
@@ -57,4 +58,50 @@ document.querySelectorAll(".fa-minus").forEach(minusIcon => {
             plusIcon.classList.remove("hidden");
         }
     })
+});
+
+
+// submit credentials update form
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("updateCredsForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form)
+        
+        // preparing the payload to be sent off to server
+        const payload = {};
+        for (const [key, value] of formData.entries()) {
+            // add to payload if there's a value, if not set to null
+            payload[key] = value.trim() ? value.trim() : null;
+        }
+        console.log(payload)
+
+        try {
+            const response = await fetch("/users/updateCred", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+
+            const result = await response.json();
+
+            if (response.ok) {
+    
+                credentialsMessage.textContent = result.message || "Credentials update successful";
+                credentialsMessage.style.color = "green"
+            } else {
+                res.status(401)
+                credentialsMessage.textContent = result.message || "Error while updating credentials";
+                credentialsMessage.style.color = "red"
+            }
+
+        } catch (error) {
+            console.error("request failed", error);
+             credentialsMessage.textContent = "a server error has occured";
+            credentialsMessage.style.color = "red"
+        }
+    });
 });
