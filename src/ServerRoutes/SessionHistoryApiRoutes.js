@@ -6,8 +6,8 @@ const authSessionToken = require("../config/auth")
 //routes
 
 router.post("/addOngoingEntry", authSessionToken, addOngoingEntry);
-router.get("/getOngoingSession", authSessionToken, getOngoingSession);
+router.get("/getOngoingSession", getOngoingSession);
 router.post("/addCompletedEntry", authSessionToken, addCompletedEntry);
-router.get("/getCompletedSession", authSessionToken, getCompletedSession);
+router.get("/getCompletedSession", getCompletedSession);
 
 module.exports = router

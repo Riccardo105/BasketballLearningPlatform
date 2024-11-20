@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const BlacklistedToken = require("../../models/blackListedTokenModel");
-const { getCompletedSession } = require("../api/SessionHistoryApiController");
+const { getCompletedSession, getOngoingSession } = require("../api/SessionHistoryApiController");
 
 // user dashboard route: DINAMIC redirected here if successfull login
 // username is taken from cookie payload
@@ -28,20 +28,22 @@ const dashboardPage = (req, res)=> {
             }
 
 
-            // req.body = {...req.body, userId: decoded.id}
-            // const ongoingData = await getOngoingSession(req, res);
-            // const completedData = await getCompletedSession(req, res);
+             req.body = {...req.body, userId: decoded.id}
+             const ongoingData = await getOngoingSession(req, res);
+             const completedData = await getCompletedSession(req, res);
 
             
 
             // Render the dashboard page with user information
             res.render("pages/dashboard", { title: `dashboard/${decoded.username}`,
                                             username: decoded.username,
+                                            ongoingData: ongoingData.ongoingExercises,
+                                            completedData: completedData.CompletedExercises
                                            
                                             });
 
         } catch(error) {
-            console.error("Error checking blacklist:", err);
+            console.error("Error loading the dashboard", err);
             return res.redirect("/login"); // Error occurred while checking blacklist
         };
     });

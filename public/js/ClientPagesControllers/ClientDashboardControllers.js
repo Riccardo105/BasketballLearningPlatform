@@ -31,29 +31,26 @@ document.querySelectorAll(".signoutBtn").forEach(element => {
 });
 
 
-// show credentials menu
+// show credentials menu and change button
 document.getElementById("credentialsPlus").addEventListener("click", async function() {
-        credentialsDiv = document.getElementById("credentialsDiv")
-        minusIcon = this.nextElementSibling
+    credentialsDiv = document.getElementById("credentialsDiv")
 
-        credentialsDiv.classList.toggle("hidden");
-        plusIcon.classList.add("hidden");
-        if (minusIcon) {
-            minusIcon.classList.remove("hidden"); 
-        }
-        
+    credentialsDiv.classList.toggle("hidden");
+    credentialsPlus.classList.add("hidden");
+    if (credentialsMinus) {
+        credentialsMinus.classList.remove("hidden"); 
+    }      
 });
 
-// hide credentials menu
+// hide credentials menu and change button
 document.getElementById("credentialsMinus").addEventListener("click", async function() {
-        credentialsDiv = document.getElementById("credentialsDiv")
-        plusIcon = this.previousElementSibling
+    credentialsDiv = document.getElementById("credentialsDiv")
 
-        credentialsDiv.classList.add("hidden");
-        minusIcon.classList.add("hidden");
-        if (plusIcon) {
-            plusIcon.classList.remove("hidden");
-        }
+    credentialsDiv.classList.add("hidden");
+    credentialsMinus.classList.add("hidden");
+     if (credentialsPlus) {
+        credentialsPlus.classList.remove("hidden");
+    }
 });
 
 
@@ -100,6 +97,52 @@ document.addEventListener("DOMContentLoaded", function() {
             credentialsMessage.style.color = "red"
         }
     });
+});
+
+
+
+// show ongoing History menu and change button
+document.getElementById("ongoingPlus").addEventListener("click", async function() {
+    credentialsDiv = document.getElementById("credentialsDiv")
+
+    ongoingDiv.classList.toggle("hidden");
+    ongoingPlus.classList.add("hidden");
+    if (ongoingMinus) {
+        ongoingMinus.classList.remove("hidden"); 
+    }   
+});
+
+// hide ongoing History menu and change button
+document.getElementById("ongoingMinus").addEventListener("click", async function() {
+    credentialsDiv = document.getElementById("credentialsDiv")
+
+    ongoingDiv.classList.add("hidden");
+    ongoingMinus.classList.add("hidden");
+    if (ongoingPlus) {
+        ongoingPlus.classList.remove("hidden"); 
+    }  
+});
+
+// show completed History menu and change button
+document.getElementById("completedPlus").addEventListener("click", async function() {
+    credentialsDiv = document.getElementById("credentialsDiv")
+
+    completedDiv.classList.toggle("hidden");
+    completedPlus.classList.add("hidden");
+    if (completedMinus) {
+        completedMinus.classList.remove("hidden"); 
+    }   
+});
+
+// hide completed History menu and change button
+document.getElementById("completedMinus").addEventListener("click", async function() {
+    credentialsDiv = document.getElementById("credentialsDiv")
+
+    completedDiv.classList.add("hidden");
+    completedMinus.classList.add("hidden");
+    if (completedPlus) {
+        completedPlus.classList.remove("hidden"); 
+    }  
 });
 
 

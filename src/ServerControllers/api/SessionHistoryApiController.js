@@ -1,5 +1,8 @@
 const {OngoingSession, CompletedSession} = require("../../models/sessionHistoryModel");
 const Exercise = require("../../models/exerciseModel");
+const mongoose = require("mongoose")
+const { Types } = require('mongoose');
+const User = require("../../models/userModel");
 
 
 // Add entry to ognoing session
@@ -36,20 +39,36 @@ const addOngoingEntry = async (req, res) => {
 
 const getOngoingSession = async (req, res) => {
     try {
-        const userID = req.body.userId;
-         
-        // find the user's ongoing session
-        const ongoingSession = await OngoingSession.findOne ({userID})
+        
+        const userID = new mongoose.Types.ObjectId(req.body.userId);
+        console.log('Converted userID:', userID);
+        console.log(userID instanceof Types.ObjectId)
+
+
+        const ongoingSession = await OngoingSession.findOne({
+        userID: userID
+        });
          
         // retreive exercises/plans
-        const exercisesID = ongoingSession.exercisesID;
+        const exercisesID = ongoingSession.exercisesID || [];
         
+        // If there are no exercises, return an empty array for exercises
+        if (exercisesID.length === 0) {
+            return { ongoingSession, ongoingExercises: [] };
+        }
 
-        console.log(ongoingSession, exercises)
-        return{ ongoingSession, exercisesID};
+        // Query the exercises collection based on the exercise IDs
+        const ongoingExercises = await Exercise.find({
+            _id: { $in: exercisesID }
+        });
+
+
+        // Return the completed session and exercises data
+        return { ongoingSession, ongoingExercises };
     }
     catch (error) {
-        return res.status(500).send({message: error.message});
+        console.error("Error in getOngoingSession:", error);
+        throw new Error("Failed to retrieve ongoing session");
 
     };
 };
@@ -104,19 +123,33 @@ const addCompletedEntry = async (req, res) => {
 
 const getCompletedSession = async (req, res) => {
     try {
-        const userID = req.userId;
 
-        const completedSession = await CompletedSession.findOne ({userID})
+        const userID = new mongoose.Types.ObjectId(req.body.userId);
+
+        const completedSession = await CompletedSession.findOne({
+        userID: userID
+        });
         
          // retreive exercises
-         const exercisesID = completedSession.exercisesID;
-         
+         const exercisesID = completedSession.exercisesID || [];
  
-        return {completedSession, exercisesID}
+        // If there are no exercises, return an empty array for exercises
+        if (exercisesID.length === 0) {
+            return { completedSession, CompletedExercises: [] };
+        }
+
+        // Query the exercises collection based on the exercise IDs
+        const completedExercises = await Exercise.find({
+            _id: { $in: exercisesID }
+        });
+
+        // Return the completed session and exercises data
+        return { completedSession, completedExercises };
 
     }
     catch (error) {
-        return res.status(500).send({messge: error.message});
+        console.error("Error in getOngoingSession:", error);
+        throw new Error("Failed to retrieve completed session");
 
     };
 };

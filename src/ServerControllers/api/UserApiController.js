@@ -30,13 +30,14 @@ const userSignup = async (req, res) => {
         });
 
 
-        // a ongoing and completed session is created for history management purposes
+        // an ongoing and completed session is created for history management purposes
         const ongoingSession = new OngoingSession({userID: newUser._id});
         const completedSession = new CompletedSession({userID: newUser._id});
 
+        await newUser.save();
         await ongoingSession.save();
         await completedSession.save();
-        await newUser.save();
+        
         
         // final response
         res.status(201).json(newUser);

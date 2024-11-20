@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("signupForm").addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        const username = event.target.userName.value;
+        const username = event.target.username.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
 

@@ -24,7 +24,8 @@
     </div>
 
         <h1 class="font-bold text-lg text-center"> Keep track of your journey!</h1>
-        <h1 class="text-md text-center"> carry on from where you left or chekc out your previous exercises</h1>
+        <h1 class="text-md text-center"> carry on from where you left off or check out your previous exercises</h1>
+
     <!-- ongoing history section-->
      <div class="flex flex-col my-2 mx-1">
         <div class="flex flex-row justify-between bg-white rounded-t-md drop-shadow-lg border-b-2 border-black">
@@ -34,7 +35,19 @@
         </div>
 
         <!-- ongoing exercises-->
-        <div>hello</div>
+        <div id="ongoingDiv" class="hidden"> 
+            <% for(var ongoingExercise of ongoingData) { %>
+            <a href="/exercise/<%= ongoingExercise._id %>"
+                class=" exercise flex flex-col bg-white drop-shadow-lg  rounded-md m-2 cursor-pointer border-b-2 border-black hover:bg-cyan-200"
+                    data-category="<%= ongoingExercise.category %>"
+                    data-skillLevel="<%= ongoingExercise.skillLevel %>">
+                <h1 class="text-black text-lg text-left p-1 cursor-pointer w-full"> <%= ongoingExercise.title %></h1>
+                <div class="flex flex-row justify-start">
+                    <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= ongoingExercise.category %></p>
+                    <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= ongoingExercise.skillLevel %></p>
+                </div>
+            </a>
+        <% } %></div>
     </div>
 
     
@@ -47,7 +60,19 @@
         </div>
 
         <!-- completed exercises-->
-        <div></div>
+        <div id="completedDiv" class="hidden">
+            <% for(var completedExercise of completedData) { %>
+            <a href="/exercise/<%= completedExercise._id %>"
+                class=" exercise flex flex-col bg-white drop-shadow-lg  rounded-md m-2 cursor-pointer border-b-2 border-black hover:bg-cyan-200"
+                    data-category="<%= completedExercise.category %>"
+                    data-skillLevel="<%= completedExercisee.skillLevel %>">
+                <h1 class="text-black text-lg text-left p-1 cursor-pointer w-full"> <%= completedExercise.title %></h1>
+                <div class="flex flex-row justify-start">
+                    <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= completedExercise.category %></p>
+                    <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= completedExercise.skillLevel %></p>
+                </div>
+            </a>
+        <% } %></div></div>
     </div>
 
 
@@ -57,6 +82,5 @@
         <button class="signoutBtn  text-black bg-blue-100 w-fit rounded-md drop-shadow-lg
                     hover:text-white hover:bg-slate-900 m-1 p-0.5 ">signout</button>
     </div>
-    
-    <script src="/js/ClientPagesControllers/ClientDashBoardControllers.js"></script>
+
 </body>
