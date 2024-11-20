@@ -32,8 +32,7 @@ document.querySelectorAll(".signoutBtn").forEach(element => {
 
 
 // show credentials menu
-document.querySelectorAll(".fa-plus").forEach(plusIcon => {
-    plusIcon.addEventListener("click", async function() {
+document.getElementById("credentialsPlus").addEventListener("click", async function() {
         credentialsDiv = document.getElementById("credentialsDiv")
         minusIcon = this.nextElementSibling
 
@@ -43,12 +42,10 @@ document.querySelectorAll(".fa-plus").forEach(plusIcon => {
             minusIcon.classList.remove("hidden"); 
         }
         
-    })
 });
 
 // hide credentials menu
-document.querySelectorAll(".fa-minus").forEach(minusIcon => {
-    minusIcon.addEventListener("click", async function() {
+document.getElementById("credentialsMinus").addEventListener("click", async function() {
         credentialsDiv = document.getElementById("credentialsDiv")
         plusIcon = this.previousElementSibling
 
@@ -57,7 +54,6 @@ document.querySelectorAll(".fa-minus").forEach(minusIcon => {
         if (plusIcon) {
             plusIcon.classList.remove("hidden");
         }
-    })
 });
 
 
@@ -105,3 +101,5 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+

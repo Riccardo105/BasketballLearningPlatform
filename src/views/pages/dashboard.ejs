@@ -1,24 +1,56 @@
 <body>
 
-    <h1> Welcome back, <%- username%></h1>
+    <h1 class="m-2 font-bold text-lg"> Welcome back, <%- username%>!</h1>
+    
+    <!-- Update credentials section-->
+    <div class="flex flex-col my-3 mx-1">
+        <div class="flex flex-row justify-between bg-white rounded-t-md drop-shadow-lg border-b-2 border-black">
+            <h1 class="m-1">Update Credentials</h1>
+            <i id="credentialsPlus" class="fa fa-plus m-1" style="width: 40px; height: 100%;" aria-hidden="true"></i>
+            <i id="credentialsMinus" class="fa fa-minus hidden m-1" style="width: 40px; height: 100%;" aria-hidden="true"></i>
+        </div>
 
-    <div class=" flex flex-row justify-between bg-white rounded-t-md drop-shadow-lg border-b-2 border-black">
-        <h1 class="m-1">Update Credentials</h1>
-        <i class="fa fa-plus m-1" style="width: 40px; height: 100%;" aria-hidden="true"></i>
-        <i class="fa fa-minus hidden m-1" style="width: 40px; height: 100%;" aria-hidden="true"></i>
+        <!-- Update credential form-->
+        <div id="credentialsDiv" class="hidden flex justify-center bg-white rounded-b-md  drop-shadow-lg">
+            <form id="updateCredsForm" method="post" class="flex flex-col justify-center gap-2 m-2">
+                <input type="text" class=" p-0.5 rounded-md border-2 drop-shadow-lg "  name="username" placeholder="username">
+                <input type="email" class=" p-0.5 rounded-md border-2 drop-shadow-lg "  name="email" placeholder="email">
+                <input type="password" class=" p-0.5 rounded-md  border-2 drop-shadow-lg "  name="password" placeholder="password">
+                <input type="submit" class="rounded-md bg-slate-50 drop-shadow-lg w-fit mx-auto px-0.5 py-0.5" value="Submit">
+            </form>
+            <p id="credentialsMessage" class="flex justify-center text-center m-1 w-full p-8" ></p>
+            
+        </div>
     </div>
 
-    <!-- Update credential form-->
-    <div id="credentialsDiv" class="hidden flex justify-center bg-white rounded-b-md  drop-shadow-lg">
-        <form id="updateCredsForm" method="post" class="flex flex-col justify-center gap-2 m-2">
-            <input type="text" class=" p-0.5 rounded-md border-2 drop-shadow-lg "  name="username" placeholder="username">
-            <input type="email" class=" p-0.5 rounded-md border-2 drop-shadow-lg "  name="email" placeholder="email">
-            <input type="password" class=" p-0.5 rounded-md  border-2 drop-shadow-lg "  name="password" placeholder="password">
-            <input type="submit" class="rounded-md bg-slate-50 drop-shadow-lg w-fit mx-auto px-0.5 py-0.5" value="Submit">
-        </form>
-        <p id="credentialsMessage" class="flex justify-center text-center m-1 w-full p-8" ></p>
-        
+        <h1 class="font-bold text-lg text-center"> Keep track of your journey!</h1>
+        <h1 class="text-md text-center"> carry on from where you left or chekc out your previous exercises</h1>
+    <!-- ongoing history section-->
+     <div class="flex flex-col my-2 mx-1">
+        <div class="flex flex-row justify-between bg-white rounded-t-md drop-shadow-lg border-b-2 border-black">
+            <h1 class="m-1">Ongoing Exercises</h1>
+            <i id="ongoingPlus" class="fa fa-plus m-1" style="width: 40px; height: 100%;" aria-hidden="true"></i>
+            <i id="ongoingMinus" class="fa fa-minus hidden m-1" style="width: 40px; height: 100%;" aria-hidden="true"></i>
+        </div>
+
+        <!-- ongoing exercises-->
+        <div>hello</div>
     </div>
+
+    
+    <!-- completed history section-->
+    <div class="flex flex-col m-2 mx-1">
+        <div class="flex flex-row justify-between bg-white rounded-t-md drop-shadow-lg border-b-2 border-black">
+            <h1 class="m-1">Completed Exercises</h1>
+            <i id="completedPlus" class="fa fa-plus m-1" style="width: 40px; height: 100%;" aria-hidden="true"></i>
+            <i id="completedMinus" class="fa fa-minus hidden m-1" style="width: 40px; height: 100%;" aria-hidden="true"></i>
+        </div>
+
+        <!-- completed exercises-->
+        <div></div>
+    </div>
+
+
 
 
     <div class="flex justify-center">

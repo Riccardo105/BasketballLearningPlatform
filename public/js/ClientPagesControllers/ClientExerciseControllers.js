@@ -1,7 +1,7 @@
 
 // exercise button (in burger menu) to exercise page
 document.querySelectorAll(".exercisesBtn").forEach(element => {
-    element.addEventListener("click", function() {
+     element.addEventListener("click", function() {
         window.location.href = "/exercises"; // Navigates to the exercises page
     });
 });

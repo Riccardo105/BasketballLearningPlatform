@@ -36,24 +36,17 @@ const addOngoingEntry = async (req, res) => {
 
 const getOngoingSession = async (req, res) => {
     try {
-        const userID = req.userId;
+        const userID = req.body.userId;
          
         // find the user's ongoing session
         const ongoingSession = await OngoingSession.findOne ({userID})
          
         // retreive exercises/plans
         const exercisesID = ongoingSession.exercisesID;
-        const exercises = await Exercise.find({_id: {$in: exercisesID}});
-        const positionPlansID = ongoingSession.positionPlanID;
-        const positionPlans = await positionPlan.find({_id: {$in: positionPlansID}});
+        
 
-        const response = {
-            ongoingSession,
-            exercises,
-            positionPlans
-        };
-
-        return res.status(200).json(response)
+        console.log(ongoingSession, exercises)
+        return{ ongoingSession, exercisesID};
     }
     catch (error) {
         return res.status(500).send({message: error.message});
@@ -115,19 +108,11 @@ const getCompletedSession = async (req, res) => {
 
         const completedSession = await CompletedSession.findOne ({userID})
         
-         // retreive exercises/plans
+         // retreive exercises
          const exercisesID = completedSession.exercisesID;
-         const exercises = await Exercise.find({_id: {$in: exercisesID}});
-         const positionPlansID = completedSession.positionPlanID;
-         const positionPlans = await positionPlan.find({_id: {$in: positionPlansID}});
+         
  
-         const response = {
-             completedSession,
-             exercises,
-             positionPlans
-         };
- 
-         return res.status(200).json(response)
+        return {completedSession, exercisesID}
 
     }
     catch (error) {

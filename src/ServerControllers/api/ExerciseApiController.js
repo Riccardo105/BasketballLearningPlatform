@@ -109,7 +109,7 @@ const getExerciseByID = async (req, res) => {
         });
     }
     catch (error) {
-        return res.status(500).send({messge: error.message});
+        return res.status(500).send({message: error.message});
 
     };
 };
