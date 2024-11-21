@@ -35,19 +35,27 @@
         </div>
 
         <!-- ongoing exercises-->
-        <div id="ongoingDiv" class="hidden"> 
+        <div id="ongoingDiv" class="hidden overflow-hidden flex flex-wrap "> 
             <% for(var ongoingExercise of ongoingData) { %>
-            <a href="/exercise/<%= ongoingExercise._id %>"
-                class=" exercise flex flex-col bg-white drop-shadow-lg  rounded-md m-2 cursor-pointer border-b-2 border-black hover:bg-cyan-200"
+            <div class="exercise-wrapper flex w-full items-center mb-4">
+                <a href="/exercise/<%= ongoingExercise._id %>"
+                    class=" exercise flex flex-col bg-white drop-shadow-lg  rounded-md m-2 cursor-pointer border-b-2 border-black hover:bg-cyan-200"
+                    style="width: 75%;"
                     data-category="<%= ongoingExercise.category %>"
                     data-skillLevel="<%= ongoingExercise.skillLevel %>">
-                <h1 class="text-black text-lg text-left p-1 cursor-pointer w-full"> <%= ongoingExercise.title %></h1>
-                <div class="flex flex-row justify-start">
-                    <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= ongoingExercise.category %></p>
-                    <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= ongoingExercise.skillLevel %></p>
-                </div>
-            </a>
-        <% } %></div>
+                    <h1 class="text-black text-lg text-left p-1 cursor-pointer w-full"> <%= ongoingExercise.title %></h1>
+                    <div class="flex flex-row justify-start">
+                        <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= ongoingExercise.category %></p>
+                        <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= ongoingExercise.skillLevel %></p>
+                    </div>
+                </a>
+
+                <button type="button" id="completedBtn" class=" text-black bg-white w-fit rounded-md drop-shadow-lg
+                hover:bg-green-600 cursor-pointer" data-id="<%= ongoingExercise._id %>"> <p class="px-0.5">Complete</p> 
+                </button> 
+            </div>
+        <% } %>
+        
     </div>
 
     
@@ -72,7 +80,8 @@
                     <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= completedExercise.skillLevel %></p>
                 </div>
             </a>
-        <% } %></div></div>
+        <% } %>
+        </div>
     </div>
 
 

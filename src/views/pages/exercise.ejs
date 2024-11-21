@@ -6,12 +6,15 @@
     </div>
     <p class="bg-white text-black m-2 mr-6 rounded-lg drop-shadow-lg p-2 text-left leading-loose"> <%- exercise.body%> </p>
 
-    <button type="button" id="completedBtn" class=" text-black bg-blue-100 w-fit rounded-md drop-shadow-lg
-    hover:text-white hover:bg-slate-900 cursor-pointer hidden" data-id="<%= exercise._id %>" 
+    <div class="flex justify-center"> 
+        <button type="button" id="completedBtn" class=" text-black bg-white w-fit rounded-md drop-shadow-lg
+     hover:bg-green-600 cursor-pointer" data-id="<%= exercise._id %>" 
     <% if (showCompleteBtn) { %> 
         style="display:block" 
     <% } else { %> 
         style="display:none;" 
-    <% } %> >Complete</button>
+    <% } %> ><p class="px-0.5">Complete</p></button>
+    </div>
+    
         
 </body>
