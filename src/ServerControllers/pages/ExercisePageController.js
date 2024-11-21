@@ -34,7 +34,7 @@ const exercisePage = (req, res) => {
         fetch("http://localhost:5000/sessionHistory/addOngoingEntry", {
             method: 'POST',
             body: JSON.stringify({ exerciseId, token}),
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json'},
             credentials: "include"
         }).then(response => {
             if (!response.ok) {
@@ -46,14 +46,21 @@ const exercisePage = (req, res) => {
 
         }).catch(error => {
             console.error('Error calling the add-entry API:', error);
-        });
+        })
     }
-
+    
+    let result;
+    if (isToken) {
+        result = true 
+    } else {
+         result = false
+    }
     Exercise.findById(exerciseId)
         .then(exercise => {
             res.render("pages/exercise", {
                     title: `${exercise.title}`,
-                    exercise
+                    exercise,
+                    showCompleteBtn: result,
                 });
             })
         .catch(error => {
