@@ -68,13 +68,12 @@ function clearFilters() {
 
 document.getElementById("completedBtn").addEventListener("click", function() {
     const exerciseId = this.getAttribute("data-id");
-    const token = req.cookies["token"]
     // technically to access this call there have been already several checks on the user being logged in 
     // but better safe than sorry.
     // first the exercise is removed from the ongoing history
         fetch("http://localhost:5000/sessionHistory/removeOngoingEntry", {
             method: 'POST',
-            body: JSON.stringify({ exerciseId, token}),
+            body: JSON.stringify({ exerciseId}),
             headers: { 'Content-Type': 'application/json'},
             credentials: "include"
         }).then(response => {
@@ -82,6 +81,10 @@ document.getElementById("completedBtn").addEventListener("click", function() {
                 // If the response status is not OK (200), log the status and throw an error
                 console.error('Error: ', response.status, response.statusText);
                 
+            }else if (response.ok) {
+                this.innerHTML = '<span class="text-green-600 ">✔ Completed</span>';
+                this.classList.remove('hover:bg-green-600', 'bg-white');
+                this.classList.add('bg-gray-300', 'cursor-not-allowed');
             }
             return response.json();
 
@@ -93,7 +96,7 @@ document.getElementById("completedBtn").addEventListener("click", function() {
     
         fetch("http://localhost:5000/sessionHistory/addCompletedEntry", {
             method: 'POST',
-            body: JSON.stringify({ exerciseId, token}),
+            body: JSON.stringify({ exerciseId}),
             headers: { 'Content-Type': 'application/json'},
             credentials: "include"
         }).then(response => {

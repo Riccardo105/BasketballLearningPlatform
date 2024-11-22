@@ -50,9 +50,9 @@ const addOngoingEntry = async (req, res) => {
 const removeOngoingEntry = async (req, res) => {
     try {
         const { exerciseId } = req.body;  
-        const userID = req.body.userId;
+        const userID = req.userId;
         
-        
+        console.log("remove entry:", userID)
         
         // Only update if exerciseID is provided
         if (exerciseId) {

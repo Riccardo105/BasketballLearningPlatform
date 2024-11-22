@@ -151,16 +151,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".completedBtns").forEach(element => {
         element.addEventListener("click", async function() {
             const exerciseId = this.getAttribute("data-id");
-            const token = req.cookies["token"];
+            
 
-            console.log(exerciseId)
+            console.log( "dashboard button:", exerciseId)
         
         // technically to access this call there have been already several checks on the user being logged in 
         // but better safe than sorry.
         // first the exercise is removed from the ongoing history
             fetch("http://localhost:5000/sessionHistory/removeOngoingEntry", {
                 method: 'POST',
-                body: JSON.stringify({ exerciseId, token}),
+                body: JSON.stringify({ exerciseId}),
                 headers: { 'Content-Type': 'application/json'},
                 credentials: "include"
             }).then(response => {
@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
             fetch("http://localhost:5000/sessionHistory/addCompletedEntry", {
                 method: 'POST',
-                body: JSON.stringify({ exerciseId, token}),
+                body: JSON.stringify({ exerciseId}),
                 headers: { 'Content-Type': 'application/json'},
                 credentials: "include"
             }).then(response => {
