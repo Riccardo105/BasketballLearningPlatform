@@ -50,7 +50,8 @@ const addOngoingEntry = async (req, res) => {
 const removeOngoingEntry = async (req, res) => {
     try {
         const { exerciseId } = req.body;  
-        const userID = req.userId;
+        const userID = req.body.userId;
+        
         
         
         // Only update if exerciseID is provided
@@ -82,7 +83,6 @@ const getOngoingSession = async (req, res) => {
     try {
         
         const userID = new mongoose.Types.ObjectId(req.body.userId);
-        console.log('Converted userID:', userID);
 
         const ongoingSession = await OngoingSession.findOne({
         userID: userID

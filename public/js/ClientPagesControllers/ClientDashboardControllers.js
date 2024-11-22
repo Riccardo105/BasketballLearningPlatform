@@ -144,3 +144,60 @@ document.getElementById("completedMinus").addEventListener("click", async functi
         completedPlus.classList.remove("hidden"); 
     }  
 });
+
+
+// bind complete buttons to history updating function (same structure as completedbutton in exercise page)
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".completedBtns").forEach(element => {
+        element.addEventListener("click", async function() {
+            const exerciseId = this.getAttribute("data-id");
+            const token = req.cookies["token"];
+
+            console.log(exerciseId)
+        
+        // technically to access this call there have been already several checks on the user being logged in 
+        // but better safe than sorry.
+        // first the exercise is removed from the ongoing history
+            fetch("http://localhost:5000/sessionHistory/removeOngoingEntry", {
+                method: 'POST',
+                body: JSON.stringify({ exerciseId, token}),
+                headers: { 'Content-Type': 'application/json'},
+                credentials: "include"
+            }).then(response => {
+                if (!response.ok) {
+                    // If the response status is not OK (200), log the status and throw an error
+                    console.error('Error: ', response.status, response.statusText);
+                    
+                }
+                return response.json();
+
+            }).catch(error => {
+                console.error('Error calling the add-entry API:', error);
+            });
+
+        // then the exercise is added to the completed session
+        
+            fetch("http://localhost:5000/sessionHistory/addCompletedEntry", {
+                method: 'POST',
+                body: JSON.stringify({ exerciseId, token}),
+                headers: { 'Content-Type': 'application/json'},
+                credentials: "include"
+            }).then(response => {
+                if (!response.ok) {
+                    // If the response status is not OK (200), log the status and throw an error
+                    console.error('Error: ', response.status, response.statusText);
+                    
+                }
+                return response.json();
+
+            }).then(data => {
+                // Reload the page or redirect
+                window.location.reload(); // Reloads the current page
+                // OR redirect to another page
+                // window.location.href = "/dashboard"; // Replace with your dashboard route
+            }).catch(error => {
+                console.error('Error calling the add-entry API:', error);
+            });
+        });
+    });
+})

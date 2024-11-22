@@ -2,7 +2,8 @@
 const jwt = require("jsonwebtoken");
 
 const authSessionToken = (req, res, next) => {
-    const token = req.cookies["token"];
+    const token = req.body.token;
+    console.log(token)
 
     if (!token) {
         return res.status(401).send({ message: "Unauthorised: token not found."});

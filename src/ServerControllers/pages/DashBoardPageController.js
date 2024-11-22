@@ -32,10 +32,6 @@ const dashboardPage = (req, res)=> {
              const ongoingData = await getOngoingSession(req, res);
              const completedData = await getCompletedSession(req, res);
 
-             console.log(completedData)
-
-            
-
             // Render the dashboard page with user information
             res.render("pages/dashboard", { title: `dashboard/${decoded.username}`,
                                             username: decoded.username,
