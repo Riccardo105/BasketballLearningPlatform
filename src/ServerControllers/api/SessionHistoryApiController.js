@@ -11,16 +11,27 @@ const addOngoingEntry = async (req, res) => {
         const { exerciseId } = req.body;  
         const userID = req.userId;
         
+        // Check if the exercise already exists in the completed session
+        const completedSession = await CompletedSession.findOne({
+            userID: userID,
+            exercisesID: exerciseId,
+        });
+
+        if (completedSession) {
+            console.log("Exercise already exists in the completed session.");
+            return res
+                .status(400)
+                .send({ message: "Exercise already completed, cannot add to ongoing session." });
+        }
         
         // Only update if exerciseID is provided
         if (exerciseId) {
             const update = { $addToSet: { exercisesID: exerciseId } };
             
-
             // Proceed with update
             const result = await OngoingSession.updateOne({ userID: userID }, update);
             
-            if (result.nModified > 0) {
+            if (result.modifiedCount > 0) {
                 console.log("Document updated successfully");
                 return res.status(200).send({ message: "Update successful" });
             } else {
@@ -50,7 +61,7 @@ const removeOngoingEntry = async (req, res) => {
             // Proceed with update
             const result = await OngoingSession.updateOne({ userID: userID }, update);
             
-            if (result.nModified > 0) {
+            if (result.modifiedCount > 0) {
                 console.log("Document updated successfully");
                 return res.status(200).send({ message: "Update successful" });
             } else {
@@ -116,7 +127,7 @@ const addCompletedEntry = async (req, res) => {
             // Proceed with update
             const result = await CompletedSession.updateOne({ userID: userID }, update);
             
-            if (result.nModified > 0) {
+            if (result.modifiedCount > 0) {
                 console.log("Document updated successfully");
                 return res.status(200).send({ message: "Update successful" });
             } else {

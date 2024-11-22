@@ -144,5 +144,3 @@ document.getElementById("completedMinus").addEventListener("click", async functi
         completedPlus.classList.remove("hidden"); 
     }  
 });
-
-

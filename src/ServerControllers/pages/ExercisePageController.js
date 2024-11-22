@@ -45,7 +45,7 @@ const exercisePage = (req, res) => {
             return response.json();
 
         }).catch(error => {
-            console.error('Error calling the add-entry API:', error);
+            console.error('Error calling the add-entry API:');
         })
     }
     

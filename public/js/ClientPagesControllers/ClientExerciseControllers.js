@@ -64,3 +64,49 @@ function clearFilters() {
 }
 
 
+// complete button logic to save exercise to completed session and remove it from ongoing session
+
+document.getElementById("completedBtn").addEventListener("click", function() {
+    const exerciseId = this.getAttribute("data-id");
+    
+    // technically to access this call there have been already several checks on the user being logged in 
+    // but better safe than sorry.
+    // first the exercise is removed from the ongoing history
+        fetch("http://localhost:5000/sessionHistory/removeOngoingEntry", {
+            method: 'POST',
+            body: JSON.stringify({ exerciseId}),
+            headers: { 'Content-Type': 'application/json'},
+            credentials: "include"
+        }).then(response => {
+            if (!response.ok) {
+                // If the response status is not OK (200), log the status and throw an error
+                console.error('Error: ', response.status, response.statusText);
+                
+            }
+            return response.json();
+
+        }).catch(error => {
+            console.error('Error calling the add-entry API:', error);
+        });
+
+    // then the exercise is added to the completed session
+    
+        fetch("http://localhost:5000/sessionHistory/addCompletedEntry", {
+            method: 'POST',
+            body: JSON.stringify({ exerciseId}),
+            headers: { 'Content-Type': 'application/json'},
+            credentials: "include"
+        }).then(response => {
+            if (!response.ok) {
+                // If the response status is not OK (200), log the status and throw an error
+                console.error('Error: ', response.status, response.statusText);
+                
+            }
+            return response.json();
+
+        }).catch(error => {
+            console.error('Error calling the add-entry API:', error);
+        })
+});
+
+

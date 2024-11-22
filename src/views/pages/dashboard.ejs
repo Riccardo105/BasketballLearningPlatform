@@ -60,7 +60,7 @@
 
     
     <!-- completed history section-->
-    <div class="flex flex-col m-2 mx-1">
+    <div class="flex flex-col my-2">
         <div class="flex flex-row justify-between bg-white rounded-t-md drop-shadow-lg border-b-2 border-black">
             <h1 class="m-1">Completed Exercises</h1>
             <i id="completedPlus" class="fa fa-plus m-1 cursor-pointer" style="width: 40px; height: 100%;" aria-hidden="true"></i>
@@ -73,7 +73,7 @@
             <a href="/exercise/<%= completedExercise._id %>"
                 class=" exercise flex flex-col bg-white drop-shadow-lg  rounded-md m-2 cursor-pointer border-b-2 border-black hover:bg-cyan-200"
                     data-category="<%= completedExercise.category %>"
-                    data-skillLevel="<%= completedExercisee.skillLevel %>">
+                    data-skillLevel="<%= completedExercise.skillLevel %>">
                 <h1 class="text-black text-lg text-left p-1 cursor-pointer w-full"> <%= completedExercise.title %></h1>
                 <div class="flex flex-row justify-start">
                     <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= completedExercise.category %></p>
