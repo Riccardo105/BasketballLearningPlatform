@@ -35,6 +35,36 @@ const addOngoingEntry = async (req, res) => {
     }
 };
 
+// delete entry from the ongoing session when it is moved to the completed session
+const removeOngoingEntry = async (req, res) => {
+    try {
+        const { exerciseId } = req.body;  
+        const userID = req.userId;
+        
+        
+        // Only update if exerciseID is provided
+        if (exerciseId) {
+            const update = { $pull: { exercisesID: exerciseId } };
+            
+
+            // Proceed with update
+            const result = await OngoingSession.updateOne({ userID: userID }, update);
+            
+            if (result.nModified > 0) {
+                console.log("Document updated successfully");
+                return res.status(200).send({ message: "Update successful" });
+            } else {
+                console.log("No document was updated");
+                return res.status(400).send({ message: "No matching document found to update." });
+            }
+        } else {
+            return res.status(200).send({ message: "No exercise ID provided." });
+        }
+    } catch (error) {
+        return res.status(500).send({ message: error.message });
+    }
+};
+
 // get ongoing session
 
 const getOngoingSession = async (req, res) => {
@@ -42,8 +72,6 @@ const getOngoingSession = async (req, res) => {
         
         const userID = new mongoose.Types.ObjectId(req.body.userId);
         console.log('Converted userID:', userID);
-        console.log(userID instanceof Types.ObjectId)
-
 
         const ongoingSession = await OngoingSession.findOne({
         userID: userID
@@ -76,47 +104,31 @@ const getOngoingSession = async (req, res) => {
 // same logic as above but the entry is also removed from the ongoing session 
 const addCompletedEntry = async (req, res) => {
     try {
-        const {exerciseID = [], positionPlanID = []} = req.body;
+        const { exerciseId } = req.body;  
         const userID = req.userId;
         
-        // object hold the update operation based on ids in arrays
-        const updateCompleted = {};
-        const updateOngoing = {};
+        
+        // Only update if exerciseID is provided
+        if (exerciseId) {
+            const update = { $addToSet: { exercisesID: exerciseId } };
+            
 
-        // if no value in array no operation is added to update object
-        if (exerciseID.length > 0) {
-            updateOngoing.$pull = { ...updateOngoing.$pull, exercisesID: exerciseID};
-            updateCompleted.$push = { ...updateCompleted.$push, exercisesID: exerciseID};
-        };
-
-        if (positionPlanID.length > 0) {
-            updateOngoing.$pull = { ...updateOngoing.$pull, positionPlanID: positionPlanID};
-            updateCompleted.$push = { ...updateCompleted.$push, positionPlanID: positionPlanID};
-        };
-     
-        console.log(updateOngoing);
-        console.log(updateCompleted);
-
-        // only run the update if there's a key in update
-         if (Object.keys(updateOngoing).length > 0 && Object.keys(updateCompleted).length > 0){
-            const resultOngoing = await OngoingSession.findOneAndUpdate(
-                {userID},
-                updateOngoing,
-                {returnDocument: "after"}
-            );
-            const resultCompleted = await CompletedSession.findOneAndUpdate(
-                {userID},
-                updateCompleted,
-                {returnDocument: "after"}  
-            );
-            return res.status(200).send({ message: "update succesfull", resultOngoing: resultOngoing, resultCompleted: resultCompleted})
-         } else {
-            return res.status(200).send({message: "no changes made."})
-         };
+            // Proceed with update
+            const result = await CompletedSession.updateOne({ userID: userID }, update);
+            
+            if (result.nModified > 0) {
+                console.log("Document updated successfully");
+                return res.status(200).send({ message: "Update successful" });
+            } else {
+                console.log("No document was updated");
+                return res.status(400).send({ message: "No matching document found to update." });
+            }
+        } else {
+            return res.status(200).send({ message: "No exercise ID provided." });
+        }
+    } catch (error) {
+        return res.status(500).send({ message: error.message });
     }
-    catch (error) {
-        return res.status(500).send({message: error.message});
-    };    
 };
     
    
@@ -154,4 +166,4 @@ const getCompletedSession = async (req, res) => {
     };
 };
 
-module.exports = {addOngoingEntry, getOngoingSession, addCompletedEntry, getCompletedSession};
+module.exports = {addOngoingEntry, removeOngoingEntry, getOngoingSession, addCompletedEntry, getCompletedSession};

@@ -29,7 +29,7 @@ const exercisePage = (req, res) => {
     const isToken = !!req.cookies["token"]
     const token = req.cookies["token"]
     
-    
+    // if user is logged in it also adds the exercise to the ongoin history  
     if (isToken){
         fetch("http://localhost:5000/sessionHistory/addOngoingEntry", {
             method: 'POST',
