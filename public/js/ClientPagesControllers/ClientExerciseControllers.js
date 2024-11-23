@@ -68,8 +68,6 @@ function clearFilters() {
 
 document.getElementById("completedBtn").addEventListener("click", function() {
     const exerciseId = this.getAttribute("data-id");
-    // technically to access this call there have been already several checks on the user being logged in 
-    // but better safe than sorry.
     // first the exercise is removed from the ongoing history
         fetch("http://localhost:5000/sessionHistory/removeOngoingEntry", {
             method: 'POST',

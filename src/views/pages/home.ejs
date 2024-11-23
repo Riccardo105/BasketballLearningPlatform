@@ -1,13 +1,13 @@
 
 <body>
-    <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold p-2 text-center text-red-900">
+    <h2 class="text-xl   font-bold p-2 text-center text-red-900 md:my-2 md:text-3xl 2xl:my-4 2xl:text-5xl">
         Welcome to the Basketball Learning Platform!
     </h2>
     
     <!-- About message-->
-    <div class="relative welcomeMessage p-4 text-left overflow-hidden rounded-md">
+    <div class="relative welcomeMessage p-4 text-left overflow-hidden rounded-md md:px-14 md:my-4 md:py-8 md:w-3/4 md:mx-auto 2xl:text-center 2xl:px-28 2xl:py-16 2xl:my-4 2xl:w-1/2 2xl:mx-auto">
         <!-- Background Image -->
-        <div class="absolute inset-0 bg-[url('/images/bg1.jpeg')] bg-no-repeat bg-cover bg-left-top "></div>
+        <div class="absolute inset-0 bg-[url('/images/bg1.jpeg')] bg-no-repeat bg-cover bg-left-top md:px-14 "></div>
 
         <!-- Content -->
         <p class="relative text-base text-white font-bold w-full h-auto z-10 "> 
@@ -17,54 +17,56 @@
         </p>
     </div>
 
-    <!-- Try out Exercises-->
-    <div class="flex flex-col py-5 px-2">
-        <h1 class="font-bold text-xl border-b-2 border-black text-center"> Ready to elevate your basketball skills?</h1>
+    
+        <!-- Try out Exercises-->
+        <div class="flex flex-col py-5 px-2  md:px-20 md:my-2 md:w-3/4 md:mx-auto 2xl:px-28  2xl:my-4 2xl:w-1/2 2xl:mx-auto">
+            <h1 class="font-bold text-xl border-b-2 border-black text-center"> Ready to elevate your basketball skills?</h1>
 
-        <!-- Content -->
-        <div class="py-2">
-            <p class="drop-shadow-xl rounded-3xl bg-gray-200 text-gray-950  p-2"> Explore our curated drills for shooting, ball control, defense, and strategic offense, all designed to boost your game. 
-            From mastering the basics to refining advanced moves, each exercise challenges you to play smarter, faster, and stronger. 
-            Jump in and discover the training that takes you from practice to performance!</p>
+            <!-- Content -->
+            <div class="py-2">
+                <p class="drop-shadow-xl rounded-3xl bg-gray-200 text-gray-950  p-2"> Explore our curated drills for shooting, ball control, defense, and strategic offense, all designed to boost your game. 
+                From mastering the basics to refining advanced moves, each exercise challenges you to play smarter, faster, and stronger. 
+                Jump in and discover the training that takes you from practice to performance!</p>
+                </div>
+            
+                <!-- Button-->
+            <div class="flex justify-center"> 
+                <button type="button" class=" exercisesBtn text-black bg-blue-100 w-fit rounded-md drop-shadow-lg
+                hover:text-white hover:bg-slate-900 ">
+                <p class="px-0.5">Check it out!</p>
+                </button>
             </div>
-        
+        </div>
+
+        <!-- invite to sign up -->
+        <div class="flex flex-col py-5 px-2 md:px-20 md:my-2 md:w-3/4 md:mx-auto  2xl:px-28  2xl:my-4 2xl:w-1/2 2xl:mx-auto ">
+            <h1 class="font-bold text-red-900 text-xl border-b-2 border-black text-center"> Become part of the team!</h1>
+
+            <!-- Content-->
+            <div class="py-2">
+                <p class="drop-shadow-xl rounded-3xl bg-gray-200 text-gray-950  p-2"> Unlock Your Training Journey! With a free account, you can track your progress,
+                    revisit past drills, and see how far you’ve come. Don’t just train—train smarter. 
+                    Sign up today and take the first step toward mastering the game while keeping a record of your basketball evolution!</p>
+                </div>
+
             <!-- Button-->
-        <div class="flex justify-center"> 
-            <button type="button" class=" exercisesBtn text-black bg-blue-100 w-fit rounded-md drop-shadow-lg
-            hover:text-white hover:bg-slate-900 ">
-            <p class="px-0.5">Check it out!</p>
-            </button>
-        </div>
-    </div>
-
-    <!-- invite to sign up -->
-     <div class="flex flex-col py-5 px-2">
-        <h1 class="font-bold text-red-900 text-xl border-b-2 border-black text-center"> Become part of the team!</h1>
-
-        <!-- Content-->
-        <div class="py-2">
-            <p class="drop-shadow-xl rounded-3xl bg-gray-200 text-gray-950  p-2"> Unlock Your Training Journey! With a free account, you can track your progress,
-                 revisit past drills, and see how far you’ve come. Don’t just train—train smarter. 
-                Sign up today and take the first step toward mastering the game while keeping a record of your basketball evolution!</p>
+            <div class="flex justify-center"> 
+                <button type="button" class=" signupBtn text-black bg-blue-100 w-fit rounded-md drop-shadow-lg
+                hover:text-white hover:bg-slate-900">
+                <p class="px-0.5">Sign up</p> </button>
             </div>
 
-        <!-- Button-->
-        <div class="flex justify-center"> 
-            <button type="button" class=" signupBtn text-black bg-blue-100 w-fit rounded-md drop-shadow-lg
-            hover:text-white hover:bg-slate-900">
-            <p class="px-0.5">Sign up</p> </button>
         </div>
-
-     </div>
-     <div class="flex flex-col py-5 px-2 text-center justify-center">
-            <p class=" px-4"> Already part of the team? Log in and keep pushing your limits! </p>
-            <div class="flex justify-center m-1">
-                 <!-- log in button-->
-                <button type="button" class=" loginBtn text-black bg-blue-100 w-fit rounded-md drop-shadow-lg
-                 hover:text-white hover:bg-slate-900 cursor-pointer">
-                <p class="px-0.5">Log in</p> </button>
-            </div>
-           
-        
-     </div>
+        <div class="flex flex-col py-5 px-2 text-center justify-center md:px-20 md:my-2 md:w-3/4 md:mx-auto  xl:my-4 xl:w-1/2 xl:mx-auto">
+                <p class=" px-4"> Already part of the team? Log in and keep pushing your limits! </p>
+                <div class="flex justify-center m-1">
+                    <!-- log in button-->
+                    <button type="button" class=" loginBtn text-black bg-blue-100 w-fit rounded-md drop-shadow-lg
+                    hover:text-white hover:bg-slate-900 cursor-pointer">
+                    <p class="px-0.5">Log in</p> </button>
+                </div>
+            
+            
+        </div>
+    
 </body>

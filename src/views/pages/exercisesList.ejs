@@ -1,34 +1,37 @@
-<body>
-    <h1 class="text-xl text-red-900 font-bold m-1 text-center"> Welcome to the Exercises Hub!</h1>
-        <h2 class="text-lg text-red-900 m-1 text-center"> Explore our drills and start improving your game, one step at a time!"</h2>
-
-    <div class="flex flex-row ">
+<body class="">
+    <h1 class="text-xl text-red-900 font-bold m-1 text-center md:text-2xl md:my-2 xl:text-3xl xl:my-4"> Welcome to the Exercises Hub!</h1>
+        <h2 class="text-lg text-red-900 m-1 text-center md:text-xl xl:text-2xl"> Explore our drills and start improving your game, one step at a time!"</h2>
+        
+<div class="md:mx-20 lg:mx-32">
+    <div class="flex flex-row relavite ">
         <!-- filters radio menu-->
-    <button class="m-1 w-fit p-1 rounded-md bg-white text-lg" onclick="toggleFilterMenu()"> Filters</button>
-    <button class="m-1 w-fit p-1 rounded-md bg-white text-lg" onclick="clearFilters()">Clear</button>
+        <button class="m-1 w-fit p-1 rounded-md bg-white text-lg md:ml-4" onclick="toggleFilterMenu()"> Filters</button>
+        <button class="m-1 w-fit p-1 rounded-md bg-white text-lg" onclick="clearFilters()">Clear</button>
+        
     </div>
-    
+    <div class="flex relative z-10 sm:m-1 md:m-0">
+        <div id="exerciseFilter" class=" drop-shadow-lg flex flex-col absolute w-fit  rounded-lg bg-white hidden ">
+            <!-- Categories-->
+            <legend class="border-b-2 border-black px-2 text-lg z-10 drop-shadow-lg bg-cyan-400 rounded-t-lg font-semibold">Category</legend>
+            <label class=" ml-3 p-0.5"><input type="radio" name="category" value="Ball Handling">Ball Handling</label>
+            <label class=" ml-3 p-0.5"><input type="radio" name="category" value="Shooting">Shooting</label>
+            <label class="ml-3 p-0.5"><input type="radio" name="category" value="Defense">Defense</label>
+            <label class="ml-3 pr-1"><input type="radio" name="category" value="Footwork and Movement">Footwork and Movement</label>
 
-    <div id="exerciseFilter" class=" drop-shadow-lg flex flex-col w-fit z-10 rounded-lg bg-white hidden absolute top-[182px] left-[4px] z-0">
-        <!-- Categories-->
-        <legend class="border-b-2 border-black px-2 text-lg z-10 drop-shadow-lg bg-cyan-400 rounded-t-lg font-semibold">Category</legend>
-        <label class=" ml-3 p-0.5"><input type="radio" name="category" value="Ball Handling">Ball Handling</label>
-        <label class=" ml-3 p-0.5"><input type="radio" name="category" value="Shooting">Shooting</label>
-        <label class="ml-3 p-0.5"><input type="radio" name="category" value="Defense">Defense</label>
-        <label class="ml-3 pr-1"><input type="radio" name="category" value="Footwork and Movement">Footwork and Movement</label>
+            <!-- Skill level-->
+            <legend class="border-b-2 border-black px-2 text-lg z-10 drop-shadow-lg bg-cyan-400 rounded-t-lg font-semibold">Skill Level</legend>
+            <label class=" ml-3 p-0.5"><input type="radio" name="skillLevel" value="Beginner">Beginner</label>
+            <label class=" ml-3 p-0.5"><input type="radio" name="skillLevel" value="Intermediate">Intermediate</label>
+            <label class="ml-3 p-0.5"><input type="radio" name="skillLevel" value="Advanced">Advanced</label>
 
-        <!-- Skill level-->
-        <legend class="border-b-2 border-black px-2 text-lg z-10 drop-shadow-lg bg-cyan-400 rounded-t-lg font-semibold">Skill Level</legend>
-        <label class=" ml-3 p-0.5"><input type="radio" name="skillLevel" value="Beginner">Beginner</label>
-        <label class=" ml-3 p-0.5"><input type="radio" name="skillLevel" value="Intermediate">Intermediate</label>
-        <label class="ml-3 p-0.5"><input type="radio" name="skillLevel" value="Advanced">Advanced</label>
-
+        </div>
     </div>
 
+    <div class=" flex flex-col xl:flex-wrap xl:gap-4 xl:flex-row xl:my-6 xl:w-3/4 xl:mx-auto ">
      <!-- displaying rendered exercises-->
     <% for(var exercise of exercises) { %>
         <a href="/exercise/<%= exercise._id %>"
-            class=" exercise flex flex-col bg-white drop-shadow-lg  rounded-md m-2 cursor-pointer border-b-2 border-black hover:bg-cyan-200"
+            class=" exercise bg-white drop-shadow-lg  rounded-md m-2 cursor-pointer border-b-2 border-black hover:bg-cyan-200 xl:min-w-[45%] xl:max-w-[45%] xl:mx-auto  "
                 data-category="<%= exercise.category %>"
                 data-skillLevel="<%= exercise.skillLevel %>">
             <h1 class="text-black text-lg text-left p-1 cursor-pointer w-full"> <%= exercise.title %></h1>
@@ -38,6 +41,7 @@
             </div>
         </a>
     <% } %>
-
+    </div>
+</div>
 </body>
 

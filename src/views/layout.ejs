@@ -6,7 +6,9 @@
     <title> <%-title || "BLP" %></title>
     <link href="/css/main.css" rel="stylesheet">
 </head>
-<body class="flex flex-col bg-orange-100 *:">
+<body class="flex flex-col bg-orange-100 min-h-screen">
+
+    <div class="flex-grow">
         <!-- header-->
         <%- include('./partials/header') %>
         <!-- burger menu-->
@@ -14,6 +16,8 @@
         <!-- profile menu-->
         <%- include('./partials/profileMenu')%>
         <%-body%>
+    </div>
+    
         <%- include('./partials/footer') %>
     
     
