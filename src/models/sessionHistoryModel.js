@@ -7,8 +7,6 @@ const ongoingSessionSchema = new mongoose.Schema ({
     title: {type: String, default: "Ongoing History"},
     userID:  {type: mongoose.Schema.Types.ObjectId, ref: "User"},
     exercisesID: [{type: mongoose.Schema.Types.ObjectId, ref: "Exercise"}],
-    positionPlanID:  [{type: mongoose.Schema.Types.ObjectId, ref: "PositionPlan"}],
-    personalPlanID:  [{type: mongoose.Schema.Types.ObjectId, ref: "PersonalPlan"}]
 });
 
 
@@ -18,8 +16,6 @@ const completedSessionSchema = new mongoose.Schema ({
     title: {type: String, default: "Completed History"},
     userID:  {type: mongoose.Schema.Types.ObjectId, ref: "User"},
     exercisesID: [{type: mongoose.Schema.Types.ObjectId, ref: "exercises"}],
-    positionPlanID:  [{type: mongoose.Schema.Types.ObjectId, ref: "Position Plan"}],
-    personalPlanID:  [{type: mongoose.Schema.Types.ObjectId, ref: "Personal Plan"}]
 });
 
 const OngoingSession = mongoose.model("ongoing Session", ongoingSessionSchema);
