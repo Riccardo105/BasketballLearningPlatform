@@ -28,3 +28,4 @@ const authSessionToken = (req, res, next) => {
 };
 
 module.exports = authSessionToken
+

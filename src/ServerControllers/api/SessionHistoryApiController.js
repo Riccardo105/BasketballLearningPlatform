@@ -148,6 +148,7 @@ const getCompletedSession = async (req, res) => {
     try {
 
         const userID = new mongoose.Types.ObjectId(req.body.userId);
+        console.log(userID)
 
         const completedSession = await CompletedSession.findOne({
         userID: userID
@@ -155,10 +156,11 @@ const getCompletedSession = async (req, res) => {
         
          // retreive exercises
          const exercisesID = completedSession.exercisesID || [];
+         console.log(exercisesID)
  
         // If there are no exercises, return an empty array for exercises
         if (exercisesID.length === 0) {
-            return { completedSession, CompletedExercises: [] };
+            return { completedSession, completedExercises: [] };
         }
 
         // Query the exercises collection based on the exercise IDs
