@@ -25,45 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const burgerIcon = document.querySelector(".fa-bars");
     const profileIcon = document.querySelector(".fa-user");
 
-    function enableIcons() {
-        burgerIcon.classList.remove("pointer-events-none", "opacity-50");  // Enable interaction
-        profileIcon.classList.remove("pointer-events-none", "opacity-50"); // Enable interaction
-    
-        // Add event listeners for online state
-        burgerIcon.addEventListener("click", function () {
-            toggleMenu("burgerMenu");
-        });
-    
-        profileIcon.addEventListener("click", function () {
-            toggleMenu("profileMenu");
-        });
-    }
-    
-    function disableIcons() {
-        burgerIcon.classList.add("pointer-events-none", "opacity-50");  // Disable interaction
-        profileIcon.classList.add("pointer-events-none", "opacity-50"); // Disable interaction
-    }
-    
-    // Check the initial online status
-    if (!navigator.onLine) {
-        disableIcons();
-        console.log("NavMenu detected: Offline");
-    } else {
-        enableIcons();
-        console.log("NavMenu detected: Online");
-    }
-    
-    // Listen for online/offline events to update the state dynamically
-    window.addEventListener('online', () => {
-        console.log("NavMenu detected: Online");
-        enableIcons();
-    });
-    
-    window.addEventListener('offline', () => {
-        disableIcons();
-        
-    });
-
     
 });
 

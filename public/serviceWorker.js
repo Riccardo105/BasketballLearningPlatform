@@ -1,9 +1,10 @@
-const cacheName = "Bpl-cache-v1"
+const cacheName = "Bpl-cache-v2"
 
 self.addEventListener('install', (event) => {
     const urlsToPrefetch = [
         "/home",
         "/exercises",
+        "/offline",
         "/css/main.css",
         "/css/font-awesome.min.css",
         "/js/clientPartialsControllers/toggleNavMenu.js",
