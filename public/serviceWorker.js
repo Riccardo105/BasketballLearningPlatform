@@ -1,4 +1,4 @@
-const cacheName = "Bpl-cache-v2"
+const cacheName = "Bpl-cache-v1"
 
 self.addEventListener('install', (event) => {
     const urlsToPrefetch = [
@@ -82,19 +82,20 @@ self.addEventListener('fetch', (event) => {
         console.log("service worker fetched:", cachedResponse);
         return cachedResponse;  // Serve the cached response
       }
-
-      // If we didn't find a match in the cache, use the network.
-      return fetch(event.request).then((networkResponse) => {
-        // Clone the network response before putting it in the cache
-        const responseClone = networkResponse.clone();
-        // Cache the cloned response
+      try {
+        // If not in cache, fetch from the network
+        const networkResponse = await fetch(event.request);
         event.waitUntil(
           caches.open(cacheName).then((cache) => {
-            cache.put(event.request, responseClone);
+            cache.put(event.request, networkResponse.clone());
           })
         );
-        return networkResponse;  // Serve the network response
-      });
+        return networkResponse; // Serve the network response
+      } catch (error) {
+        // If both cache and network fail, serve the fallback page
+        console.log("service worker: network and cache failed, serving fallback");
+        return caches.match('/offline');
+      }
     })()
   );
 });
