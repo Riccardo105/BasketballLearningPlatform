@@ -23,5 +23,11 @@ router.get("/signup", (req, res) => {
     res.render("pages/signup", { title: "signup"})
 });
 
+// offline page router STATIC
+
+router.get("/offline", (req, res) => {
+    res.render("pages/offline", { title: "offline"})
+});
+
 
 module.exports = router

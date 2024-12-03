@@ -4,6 +4,7 @@ self.addEventListener('install', (event) => {
     const urlsToPrefetch = [
         "/home",
         "/exercises",
+        "/offline",
         "/css/main.css",
         "/css/font-awesome.min.css",
         "/js/clientPartialsControllers/toggleNavMenu.js",
@@ -58,42 +59,45 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', (event) => {
   console.log("service worker: fetching");
 
-  // Let the browser do its default thing for non-GET requests.
-  if (event.request.method !== "GET") return;
+  if (event.request.method !== "GET") return; // Ignore non-GET requests
 
-  // Prevent the default, and handle the request ourselves.
   event.respondWith(
     (async () => {
-      // Try to get the response from a cache.
       const cache = await caches.open(cacheName);
-      const cachedResponse = await cache.match(event.request);
 
-      if (cachedResponse) {
-        // If we found a match in the cache, return it, but also update
-        // the entry in the cache in the background.
+      try {
+        // Attempt to fetch from the cache
+        const cachedResponse = await cache.match(event.request);
+        if (cachedResponse) {
+          // If cache hit, update in the background and return cached response
+          event.waitUntil(
+            fetch(event.request).then((networkResponse) => {
+              cache.put(event.request, networkResponse.clone());
+            })
+          );
+          return cachedResponse;
+        }
+
+        // No cached response, fetch from the network
+        const networkResponse = await fetch(event.request);
         event.waitUntil(
-          fetch(event.request).then((networkResponse) => {
-            // Clone the response so we can use it both for the cache
-            // and the network request.
-            cache.put(event.request, networkResponse.clone());
-          })
+          cache.put(event.request, networkResponse.clone())
         );
-        console.log("service worker fetched:", cachedResponse);
-        return cachedResponse;  // Serve the cached response
+        return networkResponse;
+      } catch (error) {
+        // Network request failed, fallback to offline page
+        console.log("Fetch failed; serving offline page instead.", error);
+        const offlinePage = await cache.match('/offline.ejs');
+        if (offlinePage) {
+          return offlinePage; // Serve the offline page
+        }
+
+        // Optional fallback response
+        return new Response('Offline page not available', {
+          status: 404,
+          statusText: 'Not Found',
+        });
       }
-
-      // If we didn't find a match in the cache, use the network.
-      return fetch(event.request).then((networkResponse) => {
-        // Clone the network response before putting it in the cache
-        const responseClone = networkResponse.clone();
-        // Cache the cloned response
-        event.waitUntil(
-          caches.open(cacheName).then((cache) => {
-            cache.put(event.request, responseClone);
-          })
-        );
-        return networkResponse;  // Serve the network response
-      });
-    })()
+    })
   );
 });
