@@ -55,17 +55,12 @@ const exercisePage = (req, res) => {
     } else {
          result = false
     }
-    Exercise.findById(exerciseId)
-        .then(exercise => {
+
             res.render("pages/exercise", {
-                    title: `${exercise.title}`,
-                    exercise,
+                    title: "exercise",
                     showCompleteBtn: result,
                 });
-            })
-        .catch(error => {
-            res.status(500).send('Error fetching exercise', error);
-        });
+      
 };
 
 

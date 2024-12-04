@@ -2,15 +2,23 @@ const cacheName = "Bpl-cache-v1"
 
 self.addEventListener('install', (event) => {
     const urlsToPrefetch = [
+        "/",
         "/home",
         "/exercises",
-        "/offline",
+        "/exercise",
+        "/offlineFallback",
         "/css/main.css",
         "/css/font-awesome.min.css",
-        "/js/clientPartialsControllers/toggleNavMenu.js",
+        "/images/bg1.jpeg",
+        "/js/ClientPartialsControllers/toggleNavMenu.js",
         "/js/ClientPagesControllers/ClientDashboardControllers.js",
+        "/js/ClientPagesControllers/ClientExerciseControllers.js",
+        "/js/ClientPagesControllers/ClientLoginControllers.js",
+        "/js/ClientPagesControllers/ClientSignupControllers.js",
+        "/js/ClientPagesControllers/ClientStaticPagesControllers.js",
         "/serviceWorker.js",
         "/serviceWorkerRegister.js",
+        "/js/ClientPagesControllers/indexedDbController.js",
     ]
     
       console.log(
@@ -84,7 +92,9 @@ self.addEventListener('fetch', (event) => {
       }
       try {
         // If not in cache, fetch from the network
-        const networkResponse = await fetch(event.request);
+        const networkResponse = await fetch(event.request, {
+          redirect: "follow"
+        });
         event.waitUntil(
           caches.open(cacheName).then((cache) => {
             cache.put(event.request, networkResponse.clone());
@@ -94,7 +104,7 @@ self.addEventListener('fetch', (event) => {
       } catch (error) {
         // If both cache and network fail, serve the fallback page
         console.log("service worker: network and cache failed, serving fallback");
-        return caches.match('/offline');
+        return caches.match('/offlineFallback');
       }
     })()
   );

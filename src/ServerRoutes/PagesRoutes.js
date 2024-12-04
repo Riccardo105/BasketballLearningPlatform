@@ -7,7 +7,7 @@ const dashboardPage = require("../ServerControllers/pages/DashBoardPageControlle
 const router = express.Router();
 
 router.get("/exercises", exercisesPage);
-router.get("/exercise/:id", exercisePage);
+router.get("/exercise", exercisePage);
 
 router.get("/login", loginPage);
 router.get("/dashboard", dashboardPage);
@@ -25,8 +25,8 @@ router.get("/signup", (req, res) => {
 
 // offline page router STATIC
 
-router.get("/offline", (req, res) => {
-    res.render("pages/offline", { title: "offline"})
+router.get("/offlineFallback", (req, res) => {
+    res.render("pages/offlineFallback", { title: "offline fallback"})
 });
 
 

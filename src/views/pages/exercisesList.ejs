@@ -30,10 +30,11 @@
     <div class=" flex flex-col xl:flex-wrap xl:gap-4 xl:flex-row xl:my-6 xl:w-3/4 xl:mx-auto ">
      <!-- displaying rendered exercises-->
     <% for(var exercise of exercises) { %>
-        <a href="/exercise/<%= exercise._id %>"
-            class=" exercise bg-white drop-shadow-lg  rounded-md m-2 cursor-pointer border-b-2 border-black hover:bg-cyan-200 xl:min-w-[45%] xl:max-w-[45%] xl:mx-auto  "
+        <a href="/exercise"
+            class=" exerciseLink bg-white drop-shadow-lg  rounded-md m-2 cursor-pointer border-b-2 border-black hover:bg-cyan-200 xl:min-w-[45%] xl:max-w-[45%] xl:mx-auto  "
                 data-category="<%= exercise.category %>"
-                data-skillLevel="<%= exercise.skillLevel %>">
+                data-skillLevel="<%= exercise.skillLevel %>"
+                data-id="<%= exercise._id %>">
             <h1 class="text-black text-lg text-left p-1 cursor-pointer w-full"> <%= exercise.title %></h1>
             <div class="flex flex-row justify-start">
                 <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= exercise.category %></p>
@@ -43,5 +44,10 @@
     <% } %>
     </div>
 </div>
+
+<%- "<script> const exercises = "+JSON.stringify(exercises)+"; </script>"; %>
+<script>
+    console.log('Exercises:', exercises); // Check the exercises object in the browser console
+</script>
 </body>
 
