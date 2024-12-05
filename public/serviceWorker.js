@@ -1,4 +1,4 @@
-const cacheName = "Bpl-cache-v1"
+const cacheName = "Bpl-cache-v2"
 
 self.addEventListener('install', (event) => {
     const urlsToPrefetch = [
