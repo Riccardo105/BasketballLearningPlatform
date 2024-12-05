@@ -10,6 +10,11 @@ self.addEventListener('install', (event) => {
         "/css/main.css",
         "/css/font-awesome.min.css",
         "/images/bg1.jpeg",
+        "/images/icons/icon_72x72.png",
+        "/images/icons/icon_96x96.png",
+        "/images/icons/icon_128x128.png",
+        "/images/icons/icon_144x144.png",
+        "/images/icons/icon_152x152.png",
         "/js/ClientPartialsControllers/toggleNavMenu.js",
         "/js/ClientPagesControllers/ClientDashboardControllers.js",
         "/js/ClientPagesControllers/ClientExerciseControllers.js",
@@ -18,6 +23,7 @@ self.addEventListener('install', (event) => {
         "/js/ClientPagesControllers/ClientStaticPagesControllers.js",
         "/serviceWorker.js",
         "/serviceWorkerRegister.js",
+        "/manifest.json",
         "/js/ClientPagesControllers/indexedDbController.js",
     ]
     
