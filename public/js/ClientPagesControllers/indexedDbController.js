@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // saves the exercises to the indexedDb
 function saveExercisesToIndexedDB(exercises) {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open('exercise-db', 1);
+        const request = indexedDB.open('exercise-db', 2);
 
         request.onupgradeneeded = (event) => {
             const db = event.target.result;
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Function to save the exercise ID to IndexedDB
 function saveExerciseIdToIndexedDB(exerciseId) {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open('exercise-db', 1);
+        const request = indexedDB.open('exercise-db', 2);
         request.onsuccess = (event) => {
             const db = event.target.result;
             const tx = db.transaction('exercises', 'readwrite');
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Function to get the current exercise from IndexedDB
 function getCurrentExerciseFromIndexedDB() {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open('exercise-db', 1);
+        const request = indexedDB.open('exercise-db', 2);
         request.onsuccess = (event) => {
             const db = event.target.result;
             const tx = db.transaction('exercises', 'readonly');
