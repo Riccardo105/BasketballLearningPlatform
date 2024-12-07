@@ -3,14 +3,19 @@
   "version": "1.0.0",
   "main": "blpDatabase.mongodb.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/main.css --watch"
+    "build:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/main.css --watch",
+    "build": "npm run build:css",
+    "build:app": "npm run build && npx cap sync"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@capacitor/cli": "^6.2.0",
+    "@capacitor/core": "^6.2.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.7",
@@ -20,6 +25,7 @@
     "ejs": "^3.1.10",
     "express": "^4.21.0",
     "express-ejs-layouts": "^2.5.1",
+    "idb": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.0",

@@ -20,7 +20,7 @@ function applyFilters() {
     const selectedSkillLevel = document.querySelector('input[name="skillLevel"]:checked')?.value || '';
 
     // Get all exercise buttons
-    const exercises = document.querySelectorAll('.exercise');
+    const exercises = document.querySelectorAll('.exerciseLink');
 
     exercises.forEach(exercise => {
         const category = exercise.getAttribute('data-category');
@@ -57,7 +57,7 @@ function clearFilters() {
     });
 
     // Show all exercises
-    const exercises = document.querySelectorAll('.exercise');
+    const exercises = document.querySelectorAll('.exerciseLink');
     exercises.forEach(exercise => {
         exercise.style.display = 'block';
     });

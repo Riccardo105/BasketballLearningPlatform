@@ -18,3 +18,10 @@ document.querySelectorAll(".signupBtn").forEach(element => {
         window.location.href = "/signup"; // Navigates to the signup page
     });
 });
+
+//offline page button to homepage
+document.querySelectorAll(".offlineBtn").forEach(element => {
+    element.addEventListener("click", function() {
+        window.location.href = "/home"; // sends back to home page
+    });
+});

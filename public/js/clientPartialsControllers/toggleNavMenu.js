@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const burgerIcon = document.querySelector(".fa-bars");
     const profileIcon = document.querySelector(".fa-user");
 
+    
     burgerIcon.addEventListener("click", function () {
         toggleMenu("burgerMenu");
     });
@@ -32,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     profileIcon.addEventListener("click", function () {
         toggleMenu("profileMenu");
     });
+    
 });
 
 
