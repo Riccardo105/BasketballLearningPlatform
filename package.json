@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "blpDatabase.mongodb.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/main.css --watch",
     "build": "npm run build:css",
