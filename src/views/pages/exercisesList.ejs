@@ -45,7 +45,9 @@
     </div>
 </div>
 
-<%- "<script> const exercises = "+JSON.stringify(exercises)+"; </script>"; %>
+<script id="exercises-data" type="application/json">
+    <%- exercisesJSON %>
+</script>
 <script>
     console.log('Exercises:', exercises); // Check the exercises object in the browser console
 </script>

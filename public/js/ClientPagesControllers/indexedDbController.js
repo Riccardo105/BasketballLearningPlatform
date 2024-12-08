@@ -2,43 +2,77 @@
 // adds the exercises list to the indexedDb
 // needed for offline feature throuhg service worker
 document.addEventListener('DOMContentLoaded', async () => {
-    
-    console.log(exercises)
-    try {
-        await saveExercisesToIndexedDB(exercises);
-        console.log('Exercises saved to IndexedDB');
-    } catch (error) {
-        console.error('Failed to save exercises to IndexedDB:', error);
+
+const exercisesDataElement = document.getElementById('exercises-data');
+const exercises = JSON.parse(exercisesDataElement.textContent);
+
+console.log("Parsed exercises data:", exercises);
+   try {
+    const db = await openDatabase();
+    // check if exercises are in the database already
+    const exercisesExist = await checkExercisesExistInDb(db);
+    // if no exercises in the database
+    if (!exercisesExist) {
+        // and if exercises are rendered to the page
+         if (exercises.length > 0) {
+            // save them to the database
+            await saveExercisesToIndexedDB(db, exercises);
+            console.log('Exercises saved to IndexedDB');
+         } else { 
+            console.warn('No exercises found on the page');
+         } 
+    } else {
+        console.log('Exercises already exist in IndexedDB');
     }
-});
+   } catch (error) {
+    console.error('Error handling exercises:', error);
+   }
+ });
 
-// saves the exercises to the indexedDb
-function saveExercisesToIndexedDB(exercises) {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open('exercise-db', 2);
-
+ function openDatabase() {
+    return new Promise ((resolve, reject) => {
+        const request = indexedDB.open("exercise-db", 1)
+    
         request.onupgradeneeded = (event) => {
             const db = event.target.result;
-            if (!db.objectStoreNames.contains('exercises')) {
-                db.createObjectStore('exercises', { keyPath: '_id' });
+            if (!db.objectStoreNames.contains("exercises")) {
+                db.createObjectStore("exercises", {keyPath: "_id"})
             }
-        };
+        }
+    
+        request.onsuccess = (event) => resolve(event.target.result);
+        request.onerror = (event) => reject(event.target.error)
 
-        request.onsuccess = (event) => {
-            const db = event.target.result;
-            const tx = db.transaction('exercises', 'readwrite');
-            const store = tx.objectStore('exercises');
+    })
+ };
 
-            exercises.forEach(exercise => {
-                store.put(exercise);
-            });
+ function checkExercisesExistInDb(db) {
+    return new Promise ((resolve, reject) => { 
+        console.log("database:", db)
+        const tx = db.transaction("exercises", "readonly");
+        const store = tx.objectStore("exercises");
+        const countRequest = store.count();
 
-            tx.oncomplete = () => resolve();
-            tx.onerror = () => reject(tx.error);
-        };
+        countRequest.onsuccess = () => resolve(countRequest.result > 0);
+        countRequest.onerror = () => reject(countRequest.error);
 
-        request.onerror = (event) => reject(event.target.error);
     });
+ }
+
+
+// saves the exercises to the indexedDb
+function saveExercisesToIndexedDB(db, exercises) {
+   return new Promise ((resolve, reject) => {
+    const tx = db.transaction("exercises", "readwrite");
+    const store = tx.objectStore("exercises");
+
+    exercises.forEach(exercise => {
+        store.put(exercise);
+    });
+
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+   });
 }
 
 // saves clicked exercise int indexedDb
@@ -51,13 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (event) => {
             // Prevent the default navigation behavior so we can capture the ID first
             event.preventDefault();
-            console.log('Clicked element:', event.target)
+            
             const linkElement = event.target.closest('a');
-            console.log('Clicked element:', linkElement);
 
             // Capture the exercise ID from the data-id attribute
             const exerciseId = linkElement.getAttribute("data-id"); // Access data-id from the dataset
-            console.log('Exercise ID:', exerciseId); // Log the exercise ID
 
             // Save the exercise ID to IndexedDB
             saveExerciseIdToIndexedDB(exerciseId);
@@ -69,19 +101,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Function to save the exercise ID to IndexedDB
-function saveExerciseIdToIndexedDB(exerciseId) {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open('exercise-db', 2);
-        request.onsuccess = (event) => {
-            const db = event.target.result;
-            const tx = db.transaction('exercises', 'readwrite');
-            const store = tx.objectStore('exercises');
-            store.put({ _id: 'current-exercise', exerciseId: exerciseId }); // Save the exercise ID
+async function saveExerciseIdToIndexedDB(exerciseId) {
+    try {
+        const db = await openDatabase();
+        const tx = db.transaction('exercises', 'readwrite');
+        const store = tx.objectStore('exercises');
+        await store.put({ _id: 'current-exercise', exerciseId: exerciseId });
+        return new Promise((resolve) => {
             tx.oncomplete = () => resolve();
-            tx.onerror = () => reject(tx.error);
-        };
-        request.onerror = (event) => reject(event.target.error);
-    });
+        });
+    } catch (error) {
+        console.error('Error saving exercise ID:', error);
+        throw error;
+    }
 }
 
 // retreive correct exercise and shows contents
@@ -108,7 +140,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Function to get the current exercise from IndexedDB
 function getCurrentExerciseFromIndexedDB() {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open('exercise-db', 2);
+        const request = indexedDB.open('exercise-db', 1);
         request.onsuccess = (event) => {
             const db = event.target.result;
             const tx = db.transaction('exercises', 'readonly');

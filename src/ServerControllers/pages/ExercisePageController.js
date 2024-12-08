@@ -12,7 +12,8 @@ const exercisesPage = async (req, res) => {
         res.render("pages/exercisesList", {
             title: "exercises",
             exercises: exercisesList, 
-            extraScripts: true });
+            extraScripts: true,
+            exercisesJSON: JSON.stringify(exercisesList)});
         
     } catch (error) {
         res.status(500).send('Error fetching data');
