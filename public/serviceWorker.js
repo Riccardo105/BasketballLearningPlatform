@@ -1,4 +1,4 @@
-const cacheName = "Bpl-cache-v1"
+const cacheName = "Bpl-cache-v2"
 
 self.addEventListener('install', (event) => {
     const urlsToPrefetch = [
@@ -93,7 +93,6 @@ self.addEventListener('fetch', (event) => {
             cache.put(event.request, networkResponse.clone());
           })
         );
-        console.log("service worker fetched:", cachedResponse);
         return cachedResponse;  // Serve the cached response
       }
       try {
@@ -101,13 +100,7 @@ self.addEventListener('fetch', (event) => {
         const networkResponse = await fetch(event.request, {
           redirect: "follow"
         });
-        const responseToCache = networkResponse.clone();
-
-        event.waitUntil(
-          caches.open(cacheName).then((cache) => {
-            cache.put(event.request, responseToCache);
-          })
-        );
+        
         return networkResponse; // Serve the network response
       } catch (error) {
         // If both cache and network fail, serve the fallback page
