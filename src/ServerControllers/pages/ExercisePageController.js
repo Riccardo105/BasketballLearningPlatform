@@ -32,7 +32,7 @@ const exercisePage = (req, res) => {
     
     // if user is logged in it also adds the exercise to the ongoin history  
     if (isToken){
-        fetch("http://localhost:5000/sessionHistory/addOngoingEntry", {
+        fetch("/sessionHistory/addOngoingEntry", {
             method: 'POST',
             body: JSON.stringify({ exerciseId, token}),
             headers: { 'Content-Type': 'application/json'},
@@ -56,7 +56,6 @@ const exercisePage = (req, res) => {
     } else {
          result = false
     }
-
             res.render("pages/exercise", {
                     title: "exercise",
                     showCompleteBtn: result,

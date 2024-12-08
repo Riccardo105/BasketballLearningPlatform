@@ -17,13 +17,9 @@ document.querySelectorAll(".signoutBtn").forEach(element => {
                 }
             });
 
-            const data = await response.json();
-            if (response.ok) {
-                // Handle success (redirect to login page)
-                window.location.href = "/login";
-            } else {
-                console.error("Sign out failed:", data.message);
-            }
+             await response.json();
+             window.location.href = "/login";
+            
         } catch (error) {
             console.error("Request failed", error);
         }

@@ -69,7 +69,7 @@ function clearFilters() {
 document.getElementById("completedBtn").addEventListener("click", function() {
     const exerciseId = this.getAttribute("data-id");
     // first the exercise is removed from the ongoing history
-        fetch("http://localhost:5000/sessionHistory/removeOngoingEntry", {
+        fetch("/sessionHistory/removeOngoingEntry", {
             method: 'POST',
             body: JSON.stringify({ exerciseId}),
             headers: { 'Content-Type': 'application/json'},
@@ -92,7 +92,7 @@ document.getElementById("completedBtn").addEventListener("click", function() {
 
     // then the exercise is added to the completed session
     
-        fetch("http://localhost:5000/sessionHistory/addCompletedEntry", {
+        fetch("/sessionHistory/addCompletedEntry", {
             method: 'POST',
             body: JSON.stringify({ exerciseId}),
             headers: { 'Content-Type': 'application/json'},

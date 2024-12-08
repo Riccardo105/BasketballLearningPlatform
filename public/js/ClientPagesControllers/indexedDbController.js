@@ -31,7 +31,7 @@ console.log("Parsed exercises data:", exercises);
 
  function openDatabase() {
     return new Promise ((resolve, reject) => {
-        const request = indexedDB.open("exercise-db", 1)
+        const request = indexedDB.open("exercise-db", 2)
     
         request.onupgradeneeded = (event) => {
             const db = event.target.result;
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Function to get the current exercise from IndexedDB
 function getCurrentExerciseFromIndexedDB() {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open('exercise-db', 1);
+        const request = indexedDB.open('exercise-db', 2);
         request.onsuccess = (event) => {
             const db = event.target.result;
             const tx = db.transaction('exercises', 'readonly');
