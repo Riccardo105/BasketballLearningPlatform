@@ -9,6 +9,7 @@ const User = require("../../models/userModel");
 const addOngoingEntry = async (req, res) => {
     try {
         const { exerciseId } = req.body;  
+        console.log("form addOngoing:", exerciseId)
         const userID = req.userId;
         
         // Check if the exercise already exists in the completed session

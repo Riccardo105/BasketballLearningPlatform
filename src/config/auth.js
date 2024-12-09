@@ -2,7 +2,7 @@
 const jwt = require("jsonwebtoken");
 
 const authSessionToken = (req, res, next) => {
-    let token = req.body.token;
+    let token = req.cookies["token"];
 
     // If no token in body, check in cookies
     if (!token) {

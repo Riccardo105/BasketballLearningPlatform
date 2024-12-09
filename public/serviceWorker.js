@@ -98,7 +98,6 @@ self.addEventListener('fetch', (event) => {
       try {
         // If not in cache, fetch from the network
         const networkResponse = await fetch(event.request, {
-          redirect: "follow"
         });
         
         return networkResponse; // Serve the network response

@@ -153,7 +153,39 @@ function getCurrentExerciseFromIndexedDB() {
                 if (data && data.exerciseId) {
                     const exerciseRequest = store.get(data.exerciseId);
                     exerciseRequest.onsuccess = (event) => {
-                        resolve(event.target.result);
+                        const exercise = event.target.result
+                        console.log("exercise:", exercise)
+                        if (exercise) {
+
+                            fetch("http://localhost:5000/sessionHistory/addOngoingEntry", {
+                                method: 'POST',
+                                body: JSON.stringify({ exerciseId : exercise._id}),
+                                headers: { 'Content-Type': 'application/json'},
+                                credentials: "include"
+                            }).then((response) => {
+                                if (!response.ok) {
+                                    console.error(
+                                        "Error: ",
+                                        response.status,
+                                        response.statusText
+                                    );
+                                    reject("API call failed");
+                                } else {
+                                    return response.json();
+                                }
+                            })
+                            .then((result) => {
+                                console.log("API Response:", result);
+                                resolve(result);
+                            })
+                            .catch((error) => {
+                                console.error("Error calling the add-entry API:", error);
+                                reject(error);
+                            });
+                        } else {
+                            reject("Exercise not found in store"); 
+                        } 
+                        resolve(event.target.result)
                     };
                     exerciseRequest.onerror = (event) => reject(event.target.error);
                 } else {

@@ -25,31 +25,7 @@ const exercisesPage = async (req, res) => {
 // exercise page Controller: redirected to page from exercise list
 // exercise list link sends exercise id to render the correct content
 const exercisePage = (req, res) => {
-    const exerciseId = req.params.id;
-    
-    const isToken = !!req.cookies["token"]
-    const token = req.cookies["token"]
-    
-    // if user is logged in it also adds the exercise to the ongoin history  
-    if (isToken){
-        fetch("/sessionHistory/addOngoingEntry", {
-            method: 'POST',
-            body: JSON.stringify({ exerciseId, token}),
-            headers: { 'Content-Type': 'application/json'},
-            credentials: "include"
-        }).then(response => {
-            if (!response.ok) {
-                // If the response status is not OK (200), log the status and throw an error
-                console.error('Error: ', response.status, response.statusText);
-                
-            }
-            return response.json();
-
-        }).catch(error => {
-            console.error('Error calling the add-entry API:', error);
-        })
-    }
-    
+    const isToken = !!req.cookies["token"] 
     let result;
     if (isToken) {
         result = true 
