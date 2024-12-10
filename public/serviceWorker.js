@@ -23,7 +23,7 @@ self.addEventListener('install', (event) => {
         "/js/ClientPagesControllers/ClientStaticPagesControllers.js",
         "/serviceWorker.js",
         "/serviceWorkerRegister.js",
-        "/manifest.json",
+        "/BLP.webmanifest",
         "/js/ClientPagesControllers/indexedDbController.js",
     ]
     

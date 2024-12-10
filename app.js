@@ -8,7 +8,7 @@ const cookieSession = require("cookie-session");
 const cookieParser = require('cookie-parser')
 const jwt = require("jsonwebtoken");
 const connectToDatabase = require ("./src/config/db");
-const expressLayouts = require('express-ejs-layouts')
+const expressLayouts = require('express-ejs-layouts');
 const path = require("path");
 
 
@@ -18,7 +18,7 @@ const exerciseRouter = require("./src/ServerRoutes/ExerciseApiRoutes");
 const sessionHistoryRouter = require("./src/ServerRoutes/SessionHistoryApiRoutes");
 
 // pages routes imports
-const pagesRouter = require("./src/ServerRoutes/PagesRoutes")
+const pagesRouter = require("./src/ServerRoutes/PagesRoutes");
 
 // Middleware
 const app = express();
@@ -58,6 +58,7 @@ app.use("/sessionHistory", sessionHistoryRouter);
 
 // pages routes
 app.use("/", pagesRouter)
+
 
 // run connetion to database from db.js
 connectToDatabase();
