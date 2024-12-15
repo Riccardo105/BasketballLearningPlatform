@@ -157,7 +157,7 @@ function getCurrentExerciseFromIndexedDB() {
                         console.log("exercise:", exercise)
                         if (exercise) {
 
-                            fetch("http://localhost:5000/sessionHistory/addOngoingEntry", {
+                            fetch("/sessionHistory/addOngoingEntry", {
                                 method: 'POST',
                                 body: JSON.stringify({ exerciseId : exercise._id}),
                                 headers: { 'Content-Type': 'application/json'},

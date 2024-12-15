@@ -4,11 +4,6 @@ const jwt = require("jsonwebtoken");
 const authSessionToken = (req, res, next) => {
     let token = req.cookies["token"];
 
-    // If no token in body, check in cookies
-    if (!token) {
-        token = req.cookies?.token; // Optional chaining ensures no error if cookies is undefined
-    };
-
     console.log("Token from auth middleware:", token);
 
     if (!token) {
