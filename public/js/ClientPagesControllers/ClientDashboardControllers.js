@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // technically to access this call there have been already several checks on the user being logged in 
         // but better safe than sorry.
         // first the exercise is removed from the ongoing history
-            fetch("http://localhost:5000/sessionHistory/removeOngoingEntry", {
+            fetch("/sessionHistory/removeOngoingEntry", {
                 method: 'POST',
                 body: JSON.stringify({ exerciseId}),
                 headers: { 'Content-Type': 'application/json'},
@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // then the exercise is added to the completed session
         
-            fetch("http://localhost:5000/sessionHistory/addCompletedEntry", {
+            fetch("/sessionHistory/addCompletedEntry", {
                 method: 'POST',
                 body: JSON.stringify({ exerciseId}),
                 headers: { 'Content-Type': 'application/json'},

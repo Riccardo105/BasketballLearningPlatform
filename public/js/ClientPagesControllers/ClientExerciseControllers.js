@@ -70,7 +70,7 @@ document.getElementById("completedBtn").addEventListener("click", function() {
     const exerciseId = this.getAttribute("data-id");
     console.log("from button:", exerciseId)
     // first the exercise is removed from the ongoing history
-        fetch("/sessionHistory/addOngoingEntry", {
+        fetch("/sessionHistory/removeOngoingEntry", {
             method: 'POST',
             body: JSON.stringify({ exerciseId}),
             headers: { 'Content-Type': 'application/json'},
@@ -93,7 +93,7 @@ document.getElementById("completedBtn").addEventListener("click", function() {
 
     // then the exercise is added to the completed session
     
-        fetch("/sessionHistory/addOngoingEntry", {
+        fetch("/sessionHistory/addCompletedEntry", {
             method: 'POST',
             body: JSON.stringify({ exerciseId}),
             headers: { 'Content-Type': 'application/json'},
