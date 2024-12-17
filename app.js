@@ -50,7 +50,6 @@ app.get("/", (_req, res) => {
 });
 
 
-
 // Api routes
 app.use("/users", userRouter);
 app.use("/exercises", exerciseRouter);

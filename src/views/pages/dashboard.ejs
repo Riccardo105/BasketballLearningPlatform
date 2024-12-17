@@ -44,11 +44,12 @@
             <div id="ongoingDiv" class="hidden overflow-hidden flex flex-wrap "> 
                 <% for(var ongoingExercise of ongoingData) { %>
                 <div class="exercise-wrapper flex w-full items-center mb-4">
-                    <a href="/exercise/<%= ongoingExercise._id %>"
+                    <a href="/exercise"
                         class=" exercise flex flex-col bg-white drop-shadow-lg  rounded-md m-2 cursor-pointer border-b-2 border-black hover:bg-cyan-200"
                         style="width: 75%;"
                         data-category="<%= ongoingExercise.category %>"
-                        data-skillLevel="<%= ongoingExercise.skillLevel %>">
+                        data-skillLevel="<%= ongoingExercise.skillLevel %>"
+                        data-id="<%= ongoingExercise._id %>">
                         <h1 class="text-black text-lg text-left p-1 cursor-pointer w-full"> <%= ongoingExercise.title %></h1>
                         <div class="flex flex-row justify-start">
                             <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= ongoingExercise.category %></p>
@@ -76,10 +77,11 @@
             <!-- completed exercises-->
             <div id="completedDiv" class="hidden">
                 <% for(var completedExercise of completedData) { %>
-                <a href="/exercise/<%= completedExercise._id %>"
+                <a href="/exercise/"
                     class=" exercise flex flex-col bg-white drop-shadow-lg  rounded-md m-2 cursor-pointer border-b-2 border-black hover:bg-cyan-200"
                         data-category="<%= completedExercise.category %>"
-                        data-skillLevel="<%= completedExercise.skillLevel %>">
+                        data-skillLevel="<%= completedExercise.skillLevel %>"
+                        data-id="<%= completedExercise._id %>">
                     <h1 class="text-black text-lg text-left p-1 cursor-pointer w-full"> <%= completedExercise.title %></h1>
                     <div class="flex flex-row justify-start">
                         <p class="text-sm text-start text-black p-2 border-r-2 w-fit"> <%= completedExercise.category %></p>
